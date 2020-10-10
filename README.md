@@ -8,8 +8,8 @@ możliwość pełnego korzystania z wszystkich funkcji aplikacji. Użytkownik us
 oraz wpisuje informacje o sobie, które chciałby aby inni użytkownicy widzieli. Będzie również
 mógł oglądać profile inny użytkownich oraz pisać z nimi.
 
-Podział pracy:
-Mateusz Oryl - zarządzanie bazą danych, połączenie serwerowe między użytkownikami
+Podział pracy:  
+Mateusz Oryl - zarządzanie bazą danych, połączenie serwerowe między użytkownikami  
 Hubert Dziedziura - wygląd aplikacji, interakcja z użytkownikiem, ogólna funkcjonalość
 
 Wspólnymi siłami postaramy się połączyć oba aspekty projektu i stworzyć finalny produkt.
