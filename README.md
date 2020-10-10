@@ -1,18 +1,17 @@
 # PCPP2020
 Repozytorium do projektu C++
 
-Projekt aplikacji desktopowej przypominającej w wyglądzie i działaniu aplikację 'Tinder'.
-Zamierzamy głównie korzystać z biblioteki Qt. Aplikacja będzie posiadała interaktywne GUI,
-użytkownik będzie miał możliwość zalogowania się, a następnie po udanym zalogowaniu otrzyma 
-możliwość pełnego korzystania z wszystkich funkcji aplikacji. Użytkownik ustawia swoje zdjecie
-oraz wpisuje informacje o sobie, które chciałby aby inni użytkownicy widzieli. Będzie również
-mógł oglądać profile inny użytkownich oraz pisać z nimi.
+Projekt gry komputerowej dla jednego gracza.  
+Gra będzie posiadała wygląd 2D z kamerą top-down. Gracz będzie miał możliwość wyboru
+postaci oraz mapy. Sterowanie myszką oraz klawiaturą. Celem gry byłoby przetrwanie np. 10 fal 
+nadchodzących przeciwników. Gracz będzie wyposażony w pistolet, który w późniejszych etapach 
+będzie mógł ulepszać w sklepie za zdobyte podczas gry kredyty. Różnego rodzaju przeciwnicy (jedni strzelający, 
+inni tylko chodzący) z każdą falą będą coraz silniejsi i będzie ich coraz więcej. Gracz będzie miał
+ograniczoną ilość życia i amunicji, którą będzie musiał podnosić z pokonanych przeciwników aby przetrwać.
 
 Podział pracy:  
-Mateusz Oryl - zarządzanie bazą danych, połączenie serwerowe między użytkownikami  
-Hubert Dziedziura - wygląd aplikacji, interakcja z użytkownikiem, ogólna funkcjonalość
-
-Wspólnymi siłami postaramy się połączyć oba aspekty projektu i stworzyć finalny produkt.
+Mateusz Oryl - gracz, przeciwnicy, broń, poziom trudności, wypadanie rzeczy z przeciwników  
+Hubert Dziedziura - mapy, menu, sklep, interakcje z przeszkodami, tekstury postaci, przeciwników, broni, mapy
 
 Technologie użyte do projektu:
-Qt, PostgreSQL, pqxx
+Biblioteka SFML
