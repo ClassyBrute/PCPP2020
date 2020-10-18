@@ -15,3 +15,10 @@ Hubert Dziedziura - mapy, menu, sklep, interakcje z przeszkodami, tekstury posta
 
 Technologie użyte do projektu:
 Biblioteka SFML
+
+
+Stan gry na 18.10.2020:
+- możliwość włączenia okna
+- szkielet projektu
+
+TODO:
