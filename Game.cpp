@@ -2,7 +2,7 @@
 
 void Game::initWindow(){
     unsigned width_window = 1200;
-    unsigned height_window = 1000;
+    unsigned height_window = 800;
     std::string title = "Super Fancy Magic Luke";
     sf::VideoMode window_bounds(width_window, height_window);
     int frame_limit = 60;
