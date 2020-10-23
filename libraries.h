@@ -1,8 +1,8 @@
-#ifndef CONST_H
-#define CONST_H
+#ifndef LIBRARIES_H
+#define LIBRARIES_H
 
-#include <string>
 #include <iostream>
+#include <string>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

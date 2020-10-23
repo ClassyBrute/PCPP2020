@@ -1,25 +1,45 @@
 #include "Player.h"
 
 Player::Player(){
+    this->player_texture.loadFromFile("textures/player.png");
 
+    float player_width = (window_size::width_window / 2) - (player_texture.getSize().x / 2);
+    float player_height = (window_size::height_window / 2) - (player_texture.getSize().y / 2);
+    this->coordinates = {player_width, player_height};
+
+    this->character.setTexture(player_texture);
+    this->character.setPosition(coordinates);
+
+    this->player_health = 100;
+
+    this->gold = 100;
 }
 
 Player::~Player(){
 
 }
 
-int Player::move(sf::Vector2i coordinates){
-    return 0;
+void Player::move(sf::Vector2f coordinates){
+    this->coordinates.x += coordinates.x;
+    this->coordinates.y += coordinates.y;
+
+    this->character.setPosition(this->coordinates);
 }
 
-int Player::health(int player_health){
-    return 0;
-}
+void Player::health(int player_health){
+    this->player_health += player_health;
 
-int Player::bank(int gold){
-    return 0;
+    if (this->player_health <= 0)
+        this->death();
+    else if (this->player_health > 100)
+        this->player_health = 100;
+
 }
 
 void Player::death(){
 
+}
+
+void Player::bank(int gold){
+    this->gold += gold;
 }
