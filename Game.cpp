@@ -41,7 +41,7 @@ void Game::updatePlayerMove(){
 void Game::update(){
     this->updateSFMLEvents();
 
-    updatePlayerMove();
+    this->updatePlayerMove();
 }
 
 void Game::render(){
