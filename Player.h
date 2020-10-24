@@ -5,15 +5,14 @@
 #include "constans.h"
 
 class Player{
-private:
-    sf::Texture player_texture;
-    sf::Vector2f coordinates;
 
 public:
     Player();
     ~Player();
 
+    sf::Texture player_texture;
     sf::Sprite character;
+    sf::Vector2f coordinates;
     int player_health;
     int gold;
 

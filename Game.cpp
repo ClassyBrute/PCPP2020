@@ -21,20 +21,36 @@ void Game::updateSFMLEvents(){
 }
 
 void Game::updatePlayerMove(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        this->player->move({0.f, -5.f});
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){     
+        if (this->player->coordinates.y <= 0){
+            this->player->coordinates.y == 0;
+        }
+        else   
+            this->player->move({0.f, -5.f});
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-        this->player->move({-5.f, 0.f});
+        if (this->player->coordinates.x <= 0){
+            this->player->coordinates.x == 0;
+        }
+        else
+            this->player->move({-5.f, 0.f});
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        this->player->move({0.f, 5.f});
+        if (this->player->coordinates.y + this->player->player_texture.getSize().y >= window_size::height_window){
+            this->player->coordinates.y == window_size::height_window - this->player->player_texture.getSize().y;
+        }
+        else
+            this->player->move({0.f, 5.f});
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        this->player->move({5.f, 0.f});
+        if (this->player->coordinates.x + this->player->player_texture.getSize().x >= window_size::width_window){
+            this->player->coordinates.x == window_size::width_window - this->player->player_texture.getSize().x;
+        }
+        else
+            this->player->move({5.f, 0.f});
     }
 }
 
