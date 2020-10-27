@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <cctype>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

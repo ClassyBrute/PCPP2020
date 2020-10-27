@@ -9,6 +9,10 @@ void Game::initWindow(){
     this->window->setFramerateLimit(frame_limit);
 }
 
+void Game::initMap(){
+    this->map = new Map();
+}
+
 void Game::initPlayer(){
     this->player = new Player();
 }
@@ -57,11 +61,18 @@ void Game::updatePlayerMove(){
 void Game::update(){
     this->updateSFMLEvents();
 
+    this->updateTileMap();
+
     updatePlayerMove();
 }
 
 void Game::render(){
-    this->window->clear(sf::Color::White);
+    this->window->clear();
+
+    this->window->draw(this->map->background);
+
+    // this->window->draw(this->map->tiles);
+    this->drawTileMap();
 
     this->window->draw(this->player->character);
 
@@ -78,7 +89,9 @@ void Game::run(){
 
 Game::Game(){
     this->initWindow();
+    this->initMap();
     this->initPlayer();
+    // this->drawTileMap();
 }
 
 Game::~Game(){

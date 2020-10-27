@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "Player.h"
+#include "Map.h"
 #include "Enemy.h"
 #include "constans.h"
 
@@ -11,8 +12,10 @@ private:
     sf::Event event;
 
     Player *player;
+    Map *map;
 
     void initWindow();
+    void initMap();
     void initPlayer();
 
 public:
@@ -21,6 +24,8 @@ public:
 
 	void updateSFMLEvents();
     void updatePlayerMove();
+    void updateTileMap();
+    void drawTileMap();
 	void update();
     
 	void render();
