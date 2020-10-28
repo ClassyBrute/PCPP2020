@@ -17,9 +17,6 @@ Map::~Map(){
 void Map::updateTileMap(){
     std::ifstream openfile("map.txt");
 
-    std::vector<std::vector<sf::Vector2i>> map;
-    std::vector<sf::Vector2i> tempMap;
-
     if(openfile.is_open()){
         while(!openfile.eof()){
             std::string str;
@@ -40,9 +37,9 @@ void Map::updateTileMap(){
 }
 
 
-void Map::drawTileMap(std::vector<std::vector<sf::Vector2i>> map, std::vector<sf::Vector2i> tempMap){
-    for(int i = 0; i < map.size(); i++){
-        for(int j = 0; j < map[j].size(); j++){
+void Map::drawTileMap(){
+    for(unsigned i = 0; i < map.size(); i++){
+        for(unsigned j = 0; j < map[j].size(); j++){
             if(map[i][j].x != -1 && map[i][j].y != -1){
                 tiles.setPosition(j * 50, i * 50);
                 tiles.setTextureRect(sf::IntRect(map[i][j].x * 50, map[i][j].y * 50, 50, 50));

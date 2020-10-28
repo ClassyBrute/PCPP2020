@@ -61,9 +61,9 @@ void Game::updatePlayerMove(){
 void Game::update(){
     this->updateSFMLEvents();
 
-    this->updateTileMap();
+    this->map->updateTileMap();
 
-    updatePlayerMove();
+    this->updatePlayerMove();
 }
 
 void Game::render(){
@@ -72,7 +72,8 @@ void Game::render(){
     this->window->draw(this->map->background);
 
     // this->window->draw(this->map->tiles);
-    this->drawTileMap();
+    this->map->drawTileMap();
+    // drawTileMap();
 
     this->window->draw(this->player->character);
 

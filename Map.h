@@ -7,6 +7,9 @@
 class Map{
 
 public:
+    std::vector<std::vector<sf::Vector2i>> map;
+    std::vector<sf::Vector2i> tempMap;
+
     Map();
     ~Map();
 
@@ -17,7 +20,7 @@ public:
     sf::Sprite tiles;
 
     void updateTileMap();
-    void drawTileMap(std::vector<std::vector<sf::Vector2i>> , std::vector<sf::Vector2i>);
+    void drawTileMap();
 };
 
 #endif
