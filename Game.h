@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Map.h"
+#include "mapTile.h"
 #include "Enemy.h"
 #include "constans.h"
 
@@ -24,8 +25,6 @@ public:
 
 	void updateSFMLEvents();
     void updatePlayerMove();
-    void updateTileMap();
-    void drawTileMap();
 	void update();
     
 	void render();

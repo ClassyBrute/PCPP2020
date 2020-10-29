@@ -5,45 +5,29 @@ Map::Map(){
 
     this->background.setTexture(background_texture);
 
-    this->tile_texture.loadFromFile("textures/tiles.png");
+    gridLength = 5;
+    setUpInitialState();
 
-    this->tiles.setTexture(tile_texture);
 }
 
 Map::~Map(){
 
 }
 
-void Map::updateTileMap(){
-    std::ifstream openfile("map.txt");
 
-    if(openfile.is_open()){
-        while(!openfile.eof()){
-            std::string str;
-            openfile >> str;
-            char x = str[0], y = str[2];
-            if(!isdigit(x) || !isdigit(y))
-                tempMap.push_back(sf::Vector2i(-1, -1));
-            else
-                tempMap.push_back(sf::Vector2i(x - '0', y - '0'));
-
-            if(openfile.peek() == '\n'){
-                map.push_back(tempMap);
-                tempMap.clear();
-            }
-        }
-        map.push_back(tempMap);
-    }
+void Map::setUpInitialState(){
+    
+    setUpTiles();
 }
 
+void Map::setUpTiles(){
 
-void Map::drawTileMap(){
-    for(unsigned i = 0; i < map.size(); i++){
-        for(unsigned j = 0; j < map[j].size(); j++){
-            if(map[i][j].x != -1 && map[i][j].y != -1){
-                tiles.setPosition(j * 50, i * 50);
-                tiles.setTextureRect(sf::IntRect(map[i][j].x * 50, map[i][j].y * 50, 50, 50));
-            }
-        }
-    }
+    tiles.clear();
+
+    std::vector<MapTile *> walls;
+    walls.push_back(new MapTile("textures/tiles.png", 20, 50, false));
+    walls.push_back(new MapTile("textures/tiles.png", 200, 100, false));
+    walls.push_back(new MapTile("textures/tiles.png", 500, 400, false));
+    walls.push_back(new MapTile("textures/tiles.png", 600, 600, false));
+    tiles.push_back(walls);
 }

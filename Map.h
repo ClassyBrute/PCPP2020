@@ -3,24 +3,25 @@
 
 #include "libraries.h"
 #include "constans.h"
+#include "mapTile.h"
 
 class Map{
 
-public:
-    std::vector<std::vector<sf::Vector2i>> map;
-    std::vector<sf::Vector2i> tempMap;
+    sf::Vector2i playerPos;
+    // std::vector<sf::Vector2i> enemyPositions;
+    void setUpInitialState();
+    // void setUpEnemyPositions();
+    void setUpTiles();
 
+public:
     Map();
     ~Map();
 
+    std::vector< std::vector<MapTile *> > tiles;
+    int gridLength;
+
     sf::Texture background_texture;
     sf::Sprite background;
-
-    sf::Texture tile_texture;
-    sf::Sprite tiles;
-
-    void updateTileMap();
-    void drawTileMap();
 };
 
 #endif

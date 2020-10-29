@@ -61,8 +61,6 @@ void Game::updatePlayerMove(){
 void Game::update(){
     this->updateSFMLEvents();
 
-    this->map->updateTileMap();
-
     this->updatePlayerMove();
 }
 
@@ -71,10 +69,12 @@ void Game::render(){
 
     this->window->draw(this->map->background);
 
-    // this->window->draw(this->map->tiles);
-    this->map->drawTileMap();
-    // drawTileMap();
-
+    for (int i = 0; i < this->map->gridLength; i++){
+        for (int j = 0; i < this->map->gridLength; j++){
+            this->window->draw(this->map->tiles[i][j]->sprite);
+        }
+    }
+    
     this->window->draw(this->player->character);
 
     this->window->display();
@@ -92,7 +92,6 @@ Game::Game(){
     this->initWindow();
     this->initMap();
     this->initPlayer();
-    // this->drawTileMap();
 }
 
 Game::~Game(){
