@@ -2,32 +2,19 @@
 
 Map::Map(){
     this->background_texture.loadFromFile("textures/map.png");
-
     this->background.setTexture(background_texture);
-
-    gridLength = 5;
-    setUpInitialState();
-
+    
+    wall_texture.loadFromFile("textures/tiles.png");
+    wall.setTexture(wall_texture);
 }
 
 Map::~Map(){
 
 }
 
+void Map::Level1(){
 
-void Map::setUpInitialState(){
-    
-    setUpTiles();
-}
 
-void Map::setUpTiles(){
+    wall.setPosition(sf::Vector2f(100,100));
 
-    tiles.clear();
-
-    std::vector<MapTile *> walls;
-    walls.push_back(new MapTile("textures/tiles.png", 20, 50, false));
-    walls.push_back(new MapTile("textures/tiles.png", 200, 100, false));
-    walls.push_back(new MapTile("textures/tiles.png", 500, 400, false));
-    walls.push_back(new MapTile("textures/tiles.png", 600, 600, false));
-    tiles.push_back(walls);
 }

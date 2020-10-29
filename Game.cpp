@@ -69,12 +69,9 @@ void Game::render(){
 
     this->window->draw(this->map->background);
 
-    for (int i = 0; i < this->map->gridLength; i++){
-        for (int j = 0; i < this->map->gridLength; j++){
-            this->window->draw(this->map->tiles[i][j]->sprite);
-        }
-    }
-    
+// o tu wyrysuj bejbe
+    // this->window->draw(this->map->Level1);
+
     this->window->draw(this->player->character);
 
     this->window->display();
