@@ -4,17 +4,22 @@ Map::Map(){
     this->background_texture.loadFromFile("textures/map.png");
     this->background.setTexture(background_texture);
     
-    wall_texture.loadFromFile("textures/tiles.png");
-    wall.setTexture(wall_texture);
+    this->wall_texture.loadFromFile("textures/tiles.png");
+    this->wall.setTexture(wall_texture);
+    for (int i = 0; i < 5; i++)
+        this->walls.push_back(wall);
 }
 
 Map::~Map(){
 
 }
 
-void Map::Level1(){
+void Map::level1(sf::RenderWindow* window){
 
-
-    wall.setPosition(sf::Vector2f(100,100));
+    for (int i = 0; i < 5; i++){
+        this->walls[i].setPosition(sf::Vector2f(100 * (i + 1),100 * (i + 1)));
+        window->draw(this->walls[i]);
+    }
+        
 
 }

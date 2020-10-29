@@ -11,13 +11,15 @@ public:
     Map();
     ~Map();
 
+    std::vector<sf::Sprite> walls;
+
     sf::Texture background_texture;
     sf::Sprite background;
 
     sf::Texture wall_texture;
     sf::Sprite wall;
 
-    void Level1();
+    void level1(sf::RenderWindow* window);
 
 };
 
