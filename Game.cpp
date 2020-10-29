@@ -69,7 +69,6 @@ void Game::render(){
 
     this->window->draw(this->map->background);
 
-// o tu wyrysuj bejbe
     this->map->level1(this->window);
 
     this->window->draw(this->player->character);
