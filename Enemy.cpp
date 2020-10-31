@@ -1,6 +1,12 @@
 #include "Enemy.h"
 
-Enemy::Enemy(sf::Vector2i coordinates, int enemy_health, sf::Sprite skin){
+Enemy::Enemy(sf::Vector2f coordinates, int enemy_health, sf::String skin){
+    this->enemy_texture.loadFromFile(skin);
+
+    this->character.setTexture(enemy_texture);
+    this->character.setPosition(coordinates);
+
+    this->enemy_health = enemy_health;
 
 }
 

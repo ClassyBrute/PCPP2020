@@ -13,14 +13,21 @@ private:
 
     Player *player;
     Map *map;
+    Enemy *enemy;
+
+    std::vector<sf::Sprite> enemies;
 
     void initWindow();
     void initMap();
     void initPlayer();
+    void initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin);
 
 public:
     Game();
     ~Game();
+
+    void drawEnemies();
+    void createEnemies();
 
 	void updateSFMLEvents();
     void updatePlayerMove();

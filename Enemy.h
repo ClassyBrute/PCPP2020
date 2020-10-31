@@ -1,11 +1,16 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "Player.h"
+#include "libraries.h"
 
-class Enemy : public Player{
+class Enemy{
 public:
-    Enemy(sf::Vector2i coordinates, int enemy_health, sf::Sprite skin);
+    sf::Texture enemy_texture;
+    sf::Sprite character;
+    sf::Vector2f coordinates;
+    int enemy_health;
+
+    Enemy(sf::Vector2f coordinates, int enemy_health, sf::String skin);
     ~Enemy();
 
     int move(sf::Vector2i coordinates);
