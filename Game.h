@@ -15,12 +15,12 @@ private:
     Map *map;
     Enemy *enemy;
 
-    std::vector<sf::Sprite> enemies;
+    std::vector<Enemy> enemies;
 
     void initWindow();
     void initMap();
     void initPlayer();
-    void initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin);
+    void initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin, int damage, float speed, int speed_attack);
 
 public:
     Game();
@@ -31,6 +31,7 @@ public:
 
 	void updateSFMLEvents();
     void updatePlayerMove();
+    void updateEnemyMove();
 	void update();
     
 	void render();

@@ -34,10 +34,11 @@ void Player::health(int player_health){
     else if (this->player_health > 100)
         this->player_health = 100;
 
+    std::cout << this->player_health << '\n';
 }
 
 void Player::death(){
-
+    this->player_health = 100;
 }
 
 void Player::bank(int gold){
