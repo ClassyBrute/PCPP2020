@@ -18,3 +18,4 @@ $(OBJS): Map.h
 
 clean:
 	$(RM) game $(OBJS)
+
