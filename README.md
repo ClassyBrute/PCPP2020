@@ -21,4 +21,11 @@ Stan gry na 18.10.2020:
 - możliwość włączenia okna
 - szkielet projektu
 
+Stan gry na 03.11.2020:
+- poruszanie graczem za pomocą WASD
+- mapa i kolizje ze ścianami
+- prototyp przeciwników
+
 TODO:
+- menu z podstawowymi funkcjami
+- 
