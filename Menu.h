@@ -5,12 +5,21 @@
 
 #include "libraries.h"
 #include "constans.h"
+#include "Player.h"
+#include "Map.h"
+#include "Enemy.h"
+#include "Game.h"
 
 class Menu{
 
 public:
 
-    Menu(float width, float height);
+    Game *game;
+
+    sf::RenderWindow *window;
+    sf::Event event;
+
+    Menu();
     ~Menu();
 
     void drawMenu (sf::RenderWindow* window);
@@ -18,9 +27,17 @@ public:
     void MoveDown();
     int GetPressedItem() { return selectedItemIndex; }
 
+    void initWindow();
+    void initGame();
+	void updateSFMLEvents();
+	void update();
+    
+	void render();
+	void run();
+
     int selectedItemIndex;
     sf::Font font;
-    sf::Text menu[MAX_NUMBER_OF_ITEMS];    
+    sf::Text menu_text[MAX_NUMBER_OF_ITEMS];    
 
 };
 

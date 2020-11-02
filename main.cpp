@@ -1,9 +1,9 @@
-#include "Game.h"
+#include "Menu.h"
 
 int main(){
-    Game game;
+    Menu menu;
 
-    game.run();
+    menu.run();
 
     return 0;
 }
