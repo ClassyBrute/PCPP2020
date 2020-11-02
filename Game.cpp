@@ -9,6 +9,10 @@ void Game::initWindow(){
     this->window->setFramerateLimit(frame_limit);
 }
 
+void Game::initMenu(){
+    this->menu = new Menu(this->window->getSize().x, this->window->getSize().y);
+}
+
 void Game::initMap(){
     this->map = new Map();
 }
@@ -35,6 +39,39 @@ void Game::createEnemies(){
 
 void Game::updateSFMLEvents(){
     while (this->window->pollEvent(this->event)){
+        if (this->event.type == sf::Event::Closed)
+            this->window->close();
+    }
+}
+
+void Game::updateSFMLEventsInMenu(){
+    while (this->window->pollEvent(this->event)){
+
+        switch (event.type){
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code){
+                    case sf::Keyboard::W:
+                        menu->MoveUp();
+                        break;
+
+                    case sf::Keyboard::S:
+                        menu->MoveDown();
+                        break;
+
+                    case sf::Keyboard::Space:
+                        switch (menu->GetPressedItem()){
+                            case 0:
+                                this->run();
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                this->window->close();
+                        }
+                }
+        }
+
         if (this->event.type == sf::Event::Closed)
             this->window->close();
     }
@@ -142,16 +179,21 @@ void Game::update(){
     this->updateSFMLEvents();
     this->updatePlayerMove();
     this->updateEnemyMove();
-        
+    this->window->clear();
+
 }
 
 void Game::render(){
-    this->window->clear();
-
     this->window->draw(this->map->background);
     this->map->level1(this->window);
     this->window->draw(this->player->character);
     this->drawEnemies();
+
+    this->window->display();
+}
+
+void Game::render_menu(){
+    this->menu->drawMenu(this->window); 
 
     this->window->display();
 }
@@ -164,8 +206,16 @@ void Game::run(){
     }
 }
 
+void Game::run_menu(){
+    while (this->window->isOpen()){
+        this->updateSFMLEventsInMenu();
+        this->render_menu();
+    }
+}
+
 Game::Game(){
     this->initWindow();
+    this->initMenu(); 
     this->initMap();
     this->initPlayer();
     this->createEnemies();
