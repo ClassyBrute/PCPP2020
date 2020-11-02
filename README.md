@@ -25,7 +25,10 @@ Stan gry na 03.11.2020:
 - poruszanie graczem za pomocą WASD
 - mapa i kolizje ze ścianami
 - prototyp przeciwników
+- poruszanie się przeciwników w strone gracza
+- interakcje przeciwników z graczem i ścianami
 
 TODO:
 - menu z podstawowymi funkcjami
-- 
+- stworzenie prototypu broni
+- możliwość zabijania przeciwników
