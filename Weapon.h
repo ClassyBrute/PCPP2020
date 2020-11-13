@@ -5,15 +5,18 @@
 
 class Weapon{
 private:
-    sf::Vector2i coordinates;
+    sf::Texture weapon_texture;
+    sf::Vector2f coordinates;
 
 public:
+    sf::Sprite weapon;
 
-    Weapon();
+    int damage;
+    double cooldown;
+    float max_speed;
+
+    Weapon(sf::String skin, sf::Vector2f coordinates, int damage, double cooldown, float max_speed);
     ~Weapon();
-
-    int move_with_player(sf::Vector2i coordinates);
-    void shoot();
 };
 
 #endif

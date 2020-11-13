@@ -44,11 +44,10 @@ int Enemy::attack(){
 
     double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / 10);
 
-    if (elapsed == this->speed_attack){
+    if (elapsed >= this->speed_attack){
         this->start = clock();
         return this->damage;
     }
     else
-        return 0;
-    
+        return 0;   
 }

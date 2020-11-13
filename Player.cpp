@@ -3,8 +3,8 @@
 Player::Player(){
     this->player_texture.loadFromFile("textures/player.png");
 
-    float player_width = (window_size::width_window / 2) - (player_texture.getSize().x / 2);
-    float player_height = (window_size::height_window / 2) - (player_texture.getSize().y / 2);
+    float player_width = (constans::width_window / 2) - (player_texture.getSize().x / 2);
+    float player_height = (constans::height_window / 2) - (player_texture.getSize().y / 2);
     this->coordinates = {player_width, player_height};
 
     this->character.setTexture(player_texture);

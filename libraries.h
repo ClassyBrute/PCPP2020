@@ -6,6 +6,7 @@
 #include <fstream>
 #include <cctype>
 #include <vector>
+#include <cmath>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

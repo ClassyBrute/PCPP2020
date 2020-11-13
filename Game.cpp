@@ -2,11 +2,14 @@
 
 void Game::initWindow(){
     std::string title = "Super Fancy Magic Luke";
-    sf::VideoMode window_bounds(window_size::width_window, window_size::height_window);
+    sf::VideoMode window_bounds(constans::width_window, constans::height_window);
     int frame_limit = 60;
 
     this->window = new sf::RenderWindow(window_bounds, title);
     this->window->setFramerateLimit(frame_limit);
+
+    this->mouse = sf::Vector2f(sf::Mouse::getPosition(*this->window));
+    this->oldRotate = 0.f;
 }
 
 void Game::initMenu(){
@@ -19,6 +22,10 @@ void Game::initMap(){
 
 void Game::initPlayer(){
     this->player = new Player();
+}
+
+void Game::initWeapon(){
+    this->weapon = new Weapon("textures/weapon.png", sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 2.0, 10.f);
 }
 
 void Game::initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin, int damage, float speed, int speed_attack){
@@ -105,8 +112,8 @@ void Game::updatePlayerMove(){
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        if (this->player->coordinates.y + this->player->player_texture.getSize().y >= window_size::height_window){
-            this->player->coordinates.y == window_size::height_window - this->player->player_texture.getSize().y;
+        if (this->player->coordinates.y + this->player->player_texture.getSize().y >= constans::height_window){
+            this->player->coordinates.y == constans::height_window - this->player->player_texture.getSize().y;
         }
         else{
             this->player->move({0.f, 5.f});
@@ -118,8 +125,8 @@ void Game::updatePlayerMove(){
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        if (this->player->coordinates.x + this->player->player_texture.getSize().x >= window_size::width_window){
-            this->player->coordinates.x == window_size::width_window - this->player->player_texture.getSize().x;
+        if (this->player->coordinates.x + this->player->player_texture.getSize().x >= constans::width_window){
+            this->player->coordinates.x == constans::width_window - this->player->player_texture.getSize().x;
         }
         else{
             this->player->move({5.f, 0.f});
@@ -179,6 +186,17 @@ void Game::update(){
     this->updateSFMLEvents();
     this->updatePlayerMove();
     this->updateEnemyMove();
+
+    this->weapon_position();
+
+    mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(*this->window));
+    this->aimDir = sf::Vector2f(this->mousePosWindow.x - this->player->character.getPosition().x + this->player->player_texture.getSize().x / 2, this->mousePosWindow.y - this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2);
+    this->aimDirNorm = sf::Vector2f(this->aimDir.x / sqrt(pow(this->aimDir.x, 2) + pow(this->aimDir.y, 2)), this->aimDir.y / sqrt(pow(this->aimDir.x, 2) + pow(this->aimDir.y, 2)));
+
+    for (size_t i = 0; i < this->bullets.size(); i++){
+        this->bullets[i].bullet.move(bullets[i].velocity);
+    }
+
     this->window->clear();
 
 }
@@ -187,6 +205,14 @@ void Game::render(){
     this->window->clear();
     this->window->draw(this->map->background);
     this->map->level1(this->window);
+
+    this->drawBullets();
+
+    for (size_t i = 0; i < this->bullets.size(); i++){
+        this->window->draw(bullets[i].bullet);
+    }
+
+    this->window->draw(this->weapon->weapon);
     this->window->draw(this->player->character);
     this->drawEnemies();
 
@@ -218,11 +244,47 @@ void Game::run_menu(){
     }
 }
 
+void Game::weapon_position(){
+    this->weapon->weapon.setPosition(sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2));
+    
+    if (!(sf::Mouse::getPosition().x == this->mouse.x && sf::Mouse::getPosition().y == this->mouse.y)){
+        sf::Vector2f position = sf::Vector2f(sf::Mouse::getPosition(*this->window));
+
+        float dx = this->weapon->weapon.getPosition().x - position.x;
+        float dy = this->weapon->weapon.getPosition().y - position.y;
+        
+        float rotation = (atan2(dy, dx)) * 180 / constans::PI + 90;
+
+        this->weapon->weapon.rotate(-oldRotate);
+        this->weapon->weapon.rotate(rotation);
+        this->oldRotate = rotation;
+        mouse = sf::Vector2f(sf::Mouse::getPosition());
+    }
+}
+
+void Game::drawBullets(){  
+    this->stop = clock();
+    double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / 10);
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (start == 0 || elapsed >= this->weapon->cooldown)){
+        this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
+        this->bullet->bullet.setPosition(this->player->character.getPosition().x + this->player->player_texture.getSize().x / 2, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2);
+        this->bullet->velocity = aimDirNorm * this->weapon->max_speed;
+
+        this->bullets.push_back(*this->bullet);
+
+        this->start = clock();
+    }
+}
+
 Game::Game(){
+    this->start = 0;
+
     this->initWindow();
     this->initMenu(); 
     this->initMap();
     this->initPlayer();
+    this->initWeapon();
     this->createEnemies();
 }
 
