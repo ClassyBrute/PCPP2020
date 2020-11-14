@@ -30,7 +30,14 @@ void Enemy::move(sf::Vector2f coordinates){
     this->character.setPosition(this->coordinates);
 }
 
-void Enemy::death(){
+void Enemy::health(int enemy_health){
+    this->enemy_health -= enemy_health;
+
+    if (this->enemy_health <= 0)
+        this->drop();
+}
+
+void Enemy::drop(){
 
 }
 

@@ -182,20 +182,46 @@ void Game::updateEnemyMove(){
     }
 }
 
-void Game::update(){
-    this->updateSFMLEvents();
-    this->updatePlayerMove();
-    this->updateEnemyMove();
-
-    this->weapon_position();
-
+void Game::updateBulletMove(){
     mousePosWindow = sf::Vector2f(sf::Mouse::getPosition(*this->window));
     this->aimDir = sf::Vector2f(this->mousePosWindow.x - this->player->character.getPosition().x + this->player->player_texture.getSize().x / 2, this->mousePosWindow.y - this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2);
     this->aimDirNorm = sf::Vector2f(this->aimDir.x / sqrt(pow(this->aimDir.x, 2) + pow(this->aimDir.y, 2)), this->aimDir.y / sqrt(pow(this->aimDir.x, 2) + pow(this->aimDir.y, 2)));
 
     for (size_t i = 0; i < this->bullets.size(); i++){
         this->bullets[i].bullet.move(bullets[i].velocity);
+        
+        if (this->bullets[i].bullet.getPosition().x < 0 || (this->bullets[i].bullet.getPosition().x > this->window->getSize().x || this->bullets[i].bullet.getPosition().y < 0 || this->bullets[i].bullet.getPosition().y > this->window->getSize().y))
+                this->bullets.erase(this->bullets.begin() + i);
+        else{
+            for (unsigned j = 0; j < this->map->walls_lvl1.size(); j++){
+                if (this->map->walls_lvl1[j].getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
+                    this->bullets.erase(this->bullets.begin() + i);
+                    break;
+                }
+            }
+        }
     }
+
+    for (size_t i = 0; i < this->bullets.size(); i++){
+        for (unsigned j = 0; j < this->enemies.size(); j++){
+            if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
+                this->bullets.erase(this->bullets.begin() + i);
+                this->enemies[j].health(this->weapon->damage);
+                if (this->enemies[j].enemy_health <= 0)
+                    this->enemies.erase(this->enemies.begin() + j);
+                break;
+            }
+        }
+    }
+}
+
+void Game::update(){
+    this->updateSFMLEvents();
+    this->updatePlayerMove();
+    this->updateEnemyMove();
+
+    this->weapon_position();
+    this->updateBulletMove();
 
     this->window->clear();
 

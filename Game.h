@@ -55,6 +55,7 @@ public:
     void updateSFMLEventsInMenu();
     void updatePlayerMove();
     void updateEnemyMove();
+    void updateBulletMove();
 	void update();
 
 	void render();
