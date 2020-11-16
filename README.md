@@ -28,7 +28,13 @@ Stan gry na 03.11.2020:
 - poruszanie się przeciwników w strone gracza
 - interakcje przeciwników z graczem i ścianami
 
-TODO:
+TODO na 17.11.2020:
 - menu z podstawowymi funkcjami
 - stworzenie prototypu broni
 - możliwość zabijania przeciwników
+
+Stan gry na 17.11.2020:
+- funkcjonalne menu
+- gracz ma możliwość strzelania do przeciwników
+- przeciwnicy "umierają" po trafieniu pociskiem
+- pociski znikają po trafieniu w przeciwnika lub w przeszkodę
