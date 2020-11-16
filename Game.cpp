@@ -136,6 +136,20 @@ void Game::updatePlayerMove(){
             }
         }
     }
+
+    for (int i = 0; i < this->coins.size(); i++){
+        if (this->coins[i].coin.getGlobalBounds().intersects(this->player->character.getGlobalBounds())){
+            this->player->bank(this->coins[i].value);
+            this->coins.erase(this->coins.begin() + i);
+        }
+    }
+
+    for (int i = 0; i < this->hearts.size(); i++){
+        if (this->hearts[i].heart.getGlobalBounds().intersects(this->player->character.getGlobalBounds())){
+            this->player->health(10);
+            this->hearts.erase(this->hearts.begin() + i);
+        }
+    }
 }
 
 void Game::updateEnemyMove(){
@@ -207,8 +221,13 @@ void Game::updateBulletMove(){
             if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
                 this->bullets.erase(this->bullets.begin() + i);
                 this->enemies[j].health(this->weapon->damage);
-                if (this->enemies[j].enemy_health <= 0)
+                if (this->enemies[j].enemy_health <= 0){
+                    this->coin = new Coin(this->enemies[j].character.getPosition(), 20);
+                    this->coins.push_back(*this->coin);
+                    // this->heart = new Heart(this->enemies[j].character.getPosition());
+                    // this->hearts.push_back(*this->heart);
                     this->enemies.erase(this->enemies.begin() + j);
+                }
                 break;
             }
         }
@@ -236,6 +255,14 @@ void Game::render(){
 
     for (size_t i = 0; i < this->bullets.size(); i++){
         this->window->draw(bullets[i].bullet);
+    }
+
+    for (size_t i = 0; i < this->coins.size(); i++){
+        this->window->draw(coins[i].coin);
+    }
+
+    for (size_t i = 0; i < this->hearts.size(); i++){
+        this->window->draw(hearts[i].heart);
     }
 
     this->window->draw(this->weapon->weapon);
@@ -316,4 +343,8 @@ Game::Game(){
 
 Game::~Game(){
     delete this->window;
+    delete this->player;
+    delete this->map;
+    delete this->menu;
+    delete this->weapon;
 }
