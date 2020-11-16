@@ -38,3 +38,6 @@ Stan gry na 17.11.2020:
 - gracz ma możliwość strzelania do przeciwników
 - przeciwnicy "umierają" po trafieniu pociskiem
 - pociski znikają po trafieniu w przeciwnika lub w przeszkodę
+
+TODO na 01.12.2020:
+- nowa mapa
