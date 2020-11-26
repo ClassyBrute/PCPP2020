@@ -253,16 +253,25 @@ void Game::updateBulletMove(){
         }
     }
 
+    std::uniform_int_distribution<uint32_t> random(1, 10);
+
     for (size_t i = 0; i < this->bullets.size(); i++){
         for (unsigned j = 0; j < this->enemies.size(); j++){
             if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
                 this->bullets.erase(this->bullets.begin() + i);
                 this->enemies[j].health(this->weapon->damage);
+                
                 if (this->enemies[j].enemy_health <= 0){
-                    this->coin = new Coin(this->enemies[j].character.getPosition(), 20);
-                    this->coins.push_back(*this->coin);
-                    // this->heart = new Heart(this->enemies[j].character.getPosition());
-                    // this->hearts.push_back(*this->heart);
+                    this->drop = random(this->generator);
+
+                    if (this->drop < 5){
+                        this->coin = new Coin(this->enemies[j].character.getPosition(), 20);
+                        this->coins.push_back(*this->coin);
+                    } else if (this->drop == 5){
+                        this->heart = new Heart(this->enemies[j].character.getPosition());
+                        this->hearts.push_back(*this->heart);
+                    }
+                    
                     this->enemies.erase(this->enemies.begin() + j);
                 }
                 break;
@@ -386,6 +395,8 @@ void Game::drawBullets(){
 
 Game::Game(){
     this->start = 0;
+
+    generator.seed(std::time(0));
 
     this->initWindow();
     this->initMenu(); 

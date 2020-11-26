@@ -41,6 +41,9 @@ private:
     clock_t start;
     clock_t stop;
 
+    std::mt19937 generator;
+    int drop;
+
     void initWindow();
     void initMenu();
     void initMenuHelp();

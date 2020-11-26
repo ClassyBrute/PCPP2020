@@ -7,6 +7,8 @@
 #include <cctype>
 #include <vector>
 #include <cmath>
+#include <random>
+#include <ctime>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
