@@ -8,6 +8,8 @@
 #include "Enemy.h"
 #include "Weapon.h"
 #include "Bullet.h"
+#include "Coin.h"
+#include "Heart.h"
 #include "constans.h"
 
 class Game{
@@ -22,9 +24,13 @@ private:
     Enemy *enemy;
     Weapon *weapon;
     Bullet *bullet;
+    Coin *coin;
+    Heart *heart;
 
     std::vector<Enemy> enemies;
     std::vector<Bullet> bullets;
+    std::vector<Coin> coins;
+    std::vector<Heart> hearts;
     
     sf::Vector2f mousePosWindow;
     sf::Vector2f aimDir;
