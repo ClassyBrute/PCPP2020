@@ -1,19 +1,19 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef MENUHELP_H
+#define MENUHELP_H
 
-#define MAX_NUMBER_OF_ITEMS 3
+#define MAX_NUMBER_OF_ITEMS 1
 
 #include "libraries.h"
 #include "constans.h"
 
-class Menu{
+class MenuHelp{
 
 public:
 
-    Menu(float width, float height);
-    ~Menu();
+    MenuHelp(float width, float height);  
+    ~MenuHelp();
 
-    void drawMenu (sf::RenderWindow* window);
+    void drawMenuHelp (sf::RenderWindow* window);
     void MoveUp();
     void MoveDown();
     
@@ -27,6 +27,7 @@ public:
     sf::Font font_title;
     sf::Text menu[MAX_NUMBER_OF_ITEMS];    
     sf::Text title;
+    sf::Text help;
 
 };
 

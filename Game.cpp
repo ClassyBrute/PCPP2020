@@ -16,6 +16,10 @@ void Game::initMenu(){
     this->menu = new Menu(this->window->getSize().x, this->window->getSize().y);
 }
 
+void Game::initMenuHelp(){
+    this->menu_help = new MenuHelp(this->window->getSize().x, this->window->getSize().y);
+}
+
 void Game::initMap(){
     this->map = new Map();
 }
@@ -72,9 +76,42 @@ void Game::updateSFMLEventsInMenu(){
                                 this->run();
                                 break;
                             case 1:
+                                this->render_menu_help();
+                                this->run_menu_help();
                                 break;
                             case 2:
                                 this->window->close();
+                        }
+
+                        switch (menu_help->GetPressedItem()){
+                            case 0:
+                                this->render_menu();
+                                this->run_menu();
+                                break;
+                        }
+                }
+        }
+
+        if (this->event.type == sf::Event::Closed)
+            this->window->close();
+    }
+}
+
+void Game::updateSFMLEventsInMenuHelp(){
+    while (this->window->pollEvent(this->event)){
+
+        switch (event.type){
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code){
+   
+                    case sf::Keyboard::Return:
+
+                        switch (menu_help->GetPressedItem()){
+                            case 0:
+                                this->render_menu();
+                                this->run_menu();
+                                break;
                         }
                 }
         }
@@ -134,20 +171,6 @@ void Game::updatePlayerMove(){
                 if (this->map->walls_lvl1[i].getGlobalBounds().intersects(this->player->character.getGlobalBounds()))
                     this->player->move({-5.f, 0.f});    
             }
-        }
-    }
-
-    for (int i = 0; i < this->coins.size(); i++){
-        if (this->coins[i].coin.getGlobalBounds().intersects(this->player->character.getGlobalBounds())){
-            this->player->bank(this->coins[i].value);
-            this->coins.erase(this->coins.begin() + i);
-        }
-    }
-
-    for (int i = 0; i < this->hearts.size(); i++){
-        if (this->hearts[i].heart.getGlobalBounds().intersects(this->player->character.getGlobalBounds())){
-            this->player->health(10);
-            this->hearts.erase(this->hearts.begin() + i);
         }
     }
 }
@@ -221,13 +244,8 @@ void Game::updateBulletMove(){
             if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
                 this->bullets.erase(this->bullets.begin() + i);
                 this->enemies[j].health(this->weapon->damage);
-                if (this->enemies[j].enemy_health <= 0){
-                    this->coin = new Coin(this->enemies[j].character.getPosition(), 20);
-                    this->coins.push_back(*this->coin);
-                    // this->heart = new Heart(this->enemies[j].character.getPosition());
-                    // this->hearts.push_back(*this->heart);
+                if (this->enemies[j].enemy_health <= 0)
                     this->enemies.erase(this->enemies.begin() + j);
-                }
                 break;
             }
         }
@@ -257,14 +275,6 @@ void Game::render(){
         this->window->draw(bullets[i].bullet);
     }
 
-    for (size_t i = 0; i < this->coins.size(); i++){
-        this->window->draw(coins[i].coin);
-    }
-
-    for (size_t i = 0; i < this->hearts.size(); i++){
-        this->window->draw(hearts[i].heart);
-    }
-
     this->window->draw(this->weapon->weapon);
     this->window->draw(this->player->character);
     this->drawEnemies();
@@ -282,6 +292,16 @@ void Game::render_menu(){
     this->window->display();
 }
 
+void Game::render_menu_help(){
+    this->window->clear();
+
+    this->window->draw(this->menu_help->background);
+
+    this->menu_help->drawMenuHelp(this->window); 
+
+    this->window->display();
+}
+
 void Game::run(){
 	while (this->window->isOpen())
     {
@@ -294,6 +314,13 @@ void Game::run_menu(){
     while (this->window->isOpen()){
         this->updateSFMLEventsInMenu();
         this->render_menu();
+    }
+}
+
+void Game::run_menu_help(){
+    while (this->window->isOpen()){
+        this->updateSFMLEventsInMenuHelp();
+        this->render_menu_help();
     }
 }
 
@@ -335,6 +362,7 @@ Game::Game(){
 
     this->initWindow();
     this->initMenu(); 
+    this->initMenuHelp();
     this->initMap();
     this->initPlayer();
     this->initWeapon();
@@ -343,8 +371,4 @@ Game::Game(){
 
 Game::~Game(){
     delete this->window;
-    delete this->player;
-    delete this->map;
-    delete this->menu;
-    delete this->weapon;
 }

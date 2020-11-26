@@ -1,4 +1,4 @@
-OBJS = main.o Game.o Player.o Enemy.o Weapon.o Map.o Menu.o Bullet.o Coin.o Heart.o
+OBJS = main.o Game.o Player.o Enemy.o Weapon.o Map.o Menu.o MenuHelp.o Bullet.o
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
@@ -18,11 +18,9 @@ $(OBJS): Map.h
 
 $(OBJS): Menu.h
 
+$(OBJS): MenuHelp.h
+
 $(OBJS): Bullet.h
-
-$(OBJS): Coin.h
-
-$(OBJS): Heart.h
 
 clean:
 	$(RM) game $(OBJS)
