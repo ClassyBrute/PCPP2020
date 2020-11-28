@@ -13,19 +13,19 @@ Menu::Menu(float width, float height){
     menu[0].setColor(sf::Color::Red);
     menu[0].setString("PLAY");
     menu[0].setScale(2, 2);
-    menu[0].setPosition(sf::Vector2f(width/2 - 70, 600));
+    menu[0].setPosition(sf::Vector2f(width/2 - 70, 580));
 
     menu[1].setFont(font);
     menu[1].setColor(sf::Color::Black);
-    menu[1].setString("OPTIONS");
+    menu[1].setString("HELP");
     menu[1].setScale(2, 2);
-    menu[1].setPosition(sf::Vector2f(width/2 - 70, 700));
+    menu[1].setPosition(sf::Vector2f(width/2 - 70, 680));
 
     menu[2].setFont(font);
     menu[2].setColor(sf::Color::Black);
     menu[2].setString("EXIT");
     menu[2].setScale(2, 2);
-    menu[2].setPosition(sf::Vector2f(width/2 - 70, 800));
+    menu[2].setPosition(sf::Vector2f(width/2 - 70, 780));
 
     title.setFont(font_title);
     title.setColor(sf::Color::Red);

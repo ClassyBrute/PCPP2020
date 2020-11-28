@@ -16,6 +16,10 @@ void Game::initMenu(){
     this->menu = new Menu(this->window->getSize().x, this->window->getSize().y);
 }
 
+void Game::initMenuHelp(){
+    this->menu_help = new MenuHelp(this->window->getSize().x, this->window->getSize().y);
+}
+
 void Game::initMap(){
     this->map = new Map();
 }
@@ -39,9 +43,29 @@ void Game::drawEnemies(){
     }
 }
 
-void Game::createEnemies(){
-    this->initEnemy({10.f, 10.f}, 50, "textures/enemy.png", 10, 2.5f, 5);
-    this->initEnemy({1000.f, 800.f}, 50, "textures/enemy2.png", 15, 3.f, 4);
+void Game::level1(){
+    this->initEnemy({10.f, 10.f}, 100, "textures/enemy.png", 10, 2.5f, 5);
+    this->initEnemy({1000.f, 800.f}, 100, "textures/enemy2.png", 15, 3.f, 4);
+    this->initEnemy({10.f, 800.f}, 110, "textures/enemy.png", 10, 2.f, 5);
+}
+
+void Game::level2(){
+    this->initEnemy({30.f, 20.f}, 100, "textures/enemy.png", 20, 2.5f, 6);
+    this->initEnemy({900.f, 800.f}, 100, "textures/enemy2.png", 15, 2.5f, 4);
+    this->initEnemy({10.f, 900.f}, 110, "textures/enemy.png", 15, 2.f, 5);
+    this->initEnemy({1000.f, 20.f}, 100, "textures/enemy2.png", 20, 3.f, 3);
+}
+
+void Game::next_level(){
+    switch(this->current_level){
+        case 2:
+            this->level2();
+            break;
+        default:
+            std::cout << "Win\n";
+            break;
+
+    }
 }
 
 void Game::updateSFMLEvents(){
@@ -72,9 +96,42 @@ void Game::updateSFMLEventsInMenu(){
                                 this->run();
                                 break;
                             case 1:
+                                this->render_menu_help();
+                                this->run_menu_help();
                                 break;
                             case 2:
                                 this->window->close();
+                        }
+
+                        switch (menu_help->GetPressedItem()){
+                            case 0:
+                                this->render_menu();
+                                this->run_menu();
+                                break;
+                        }
+                }
+        }
+
+        if (this->event.type == sf::Event::Closed)
+            this->window->close();
+    }
+}
+
+void Game::updateSFMLEventsInMenuHelp(){
+    while (this->window->pollEvent(this->event)){
+
+        switch (event.type){
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code){
+   
+                    case sf::Keyboard::Return:
+
+                        switch (menu_help->GetPressedItem()){
+                            case 0:
+                                this->render_menu();
+                                this->run_menu();
+                                break;
                         }
                 }
         }
@@ -134,6 +191,20 @@ void Game::updatePlayerMove(){
                 if (this->map->walls_lvl1[i].getGlobalBounds().intersects(this->player->character.getGlobalBounds()))
                     this->player->move({-5.f, 0.f});    
             }
+        }
+    }
+
+    for (int i = 0; i < this->coins.size(); i++){
+        if (this->coins[i].coin.getGlobalBounds().intersects(this->player->character.getGlobalBounds())){
+            this->player->bank(this->coins[i].value);
+            this->coins.erase(this->coins.begin() + i);
+        }
+    }
+
+    for (int i = 0; i < this->hearts.size(); i++){
+        if (this->hearts[i].heart.getGlobalBounds().intersects(this->player->character.getGlobalBounds())){
+            this->player->health(10);
+            this->hearts.erase(this->hearts.begin() + i);
         }
     }
 }
@@ -202,13 +273,32 @@ void Game::updateBulletMove(){
         }
     }
 
+    std::uniform_int_distribution<uint32_t> random(1, 10);
+
     for (size_t i = 0; i < this->bullets.size(); i++){
         for (unsigned j = 0; j < this->enemies.size(); j++){
             if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
                 this->bullets.erase(this->bullets.begin() + i);
                 this->enemies[j].health(this->weapon->damage);
-                if (this->enemies[j].enemy_health <= 0)
+                
+                if (this->enemies[j].enemy_health <= 0){
+                    this->drop = random(this->generator);
+
+                    if (this->drop < 5){
+                        this->coin = new Coin(this->enemies[j].character.getPosition(), 20);
+                        this->coins.push_back(*this->coin);
+                    } else if (this->drop == 5){
+                        this->heart = new Heart(this->enemies[j].character.getPosition());
+                        this->hearts.push_back(*this->heart);
+                    }
+                    
                     this->enemies.erase(this->enemies.begin() + j);
+
+                    if (this->enemies.size() == 0){
+                        this->current_level++;
+                        this->next_level();
+                    }
+                }
                 break;
             }
         }
@@ -238,9 +328,21 @@ void Game::render(){
         this->window->draw(bullets[i].bullet);
     }
 
+    for (size_t i = 0; i < this->coins.size(); i++){
+        this->window->draw(coins[i].coin);
+    }
+
+    for (size_t i = 0; i < this->hearts.size(); i++){
+        this->window->draw(hearts[i].heart);
+    }
+
     this->window->draw(this->weapon->weapon);
     this->window->draw(this->player->character);
     this->drawEnemies();
+
+    std::string text = "Level: " + std::to_string(this->current_level);
+    this->level_information.setString(text);
+    this->window->draw(level_information);
 
     this->window->display();
 }
@@ -251,6 +353,16 @@ void Game::render_menu(){
     this->window->draw(this->menu->background);
 
     this->menu->drawMenu(this->window); 
+
+    this->window->display();
+}
+
+void Game::render_menu_help(){
+    this->window->clear();
+
+    this->window->draw(this->menu_help->background);
+
+    this->menu_help->drawMenuHelp(this->window); 
 
     this->window->display();
 }
@@ -267,6 +379,13 @@ void Game::run_menu(){
     while (this->window->isOpen()){
         this->updateSFMLEventsInMenu();
         this->render_menu();
+    }
+}
+
+void Game::run_menu_help(){
+    while (this->window->isOpen()){
+        this->updateSFMLEventsInMenuHelp();
+        this->render_menu_help();
     }
 }
 
@@ -306,14 +425,29 @@ void Game::drawBullets(){
 Game::Game(){
     this->start = 0;
 
+    this->current_level = 1;
+
+    this->font.loadFromFile("textures/font.ttf");
+
+    this->level_information.setFont(font);
+    this->level_information.setCharacterSize(32);
+    this->level_information.setPosition(20.f, 20.f);
+
+    generator.seed(std::time(0));
+
     this->initWindow();
     this->initMenu(); 
+    this->initMenuHelp();
     this->initMap();
     this->initPlayer();
     this->initWeapon();
-    this->createEnemies();
+    this->level1();
 }
 
 Game::~Game(){
     delete this->window;
+    delete this->player;
+    delete this->map;
+    delete this->menu;
+    delete this->weapon;
 }
