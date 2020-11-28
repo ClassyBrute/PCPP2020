@@ -44,6 +44,11 @@ private:
     std::mt19937 generator;
     int drop;
 
+    int current_level;
+
+    sf::Font font;
+    sf::Text level_information;
+
     void initWindow();
     void initMenu();
     void initMenuHelp();
@@ -61,7 +66,9 @@ public:
     void drawMenu();
     void drawEnemies();
     void drawBullets();
-    void createEnemies();
+    void level1();
+    void level2();
+    void next_level();
 
 	void updateSFMLEvents();
     void updateSFMLEventsInMenu();

@@ -43,9 +43,29 @@ void Game::drawEnemies(){
     }
 }
 
-void Game::createEnemies(){
-    this->initEnemy({10.f, 10.f}, 50, "textures/enemy.png", 10, 2.5f, 5);
-    this->initEnemy({1000.f, 800.f}, 50, "textures/enemy2.png", 15, 3.f, 4);
+void Game::level1(){
+    this->initEnemy({10.f, 10.f}, 100, "textures/enemy.png", 10, 2.5f, 5);
+    this->initEnemy({1000.f, 800.f}, 100, "textures/enemy2.png", 15, 3.f, 4);
+    this->initEnemy({10.f, 800.f}, 110, "textures/enemy.png", 10, 2.f, 5);
+}
+
+void Game::level2(){
+    this->initEnemy({30.f, 20.f}, 100, "textures/enemy.png", 20, 2.5f, 6);
+    this->initEnemy({900.f, 800.f}, 100, "textures/enemy2.png", 15, 2.5f, 4);
+    this->initEnemy({10.f, 900.f}, 110, "textures/enemy.png", 15, 2.f, 5);
+    this->initEnemy({1000.f, 20.f}, 100, "textures/enemy2.png", 20, 3.f, 3);
+}
+
+void Game::next_level(){
+    switch(this->current_level){
+        case 2:
+            this->level2();
+            break;
+        default:
+            std::cout << "Win\n";
+            break;
+
+    }
 }
 
 void Game::updateSFMLEvents(){
@@ -273,6 +293,11 @@ void Game::updateBulletMove(){
                     }
                     
                     this->enemies.erase(this->enemies.begin() + j);
+
+                    if (this->enemies.size() == 0){
+                        this->current_level++;
+                        this->next_level();
+                    }
                 }
                 break;
             }
@@ -314,6 +339,10 @@ void Game::render(){
     this->window->draw(this->weapon->weapon);
     this->window->draw(this->player->character);
     this->drawEnemies();
+
+    std::string text = "Level: " + std::to_string(this->current_level);
+    this->level_information.setString(text);
+    this->window->draw(level_information);
 
     this->window->display();
 }
@@ -396,6 +425,14 @@ void Game::drawBullets(){
 Game::Game(){
     this->start = 0;
 
+    this->current_level = 1;
+
+    this->font.loadFromFile("textures/font.ttf");
+
+    this->level_information.setFont(font);
+    this->level_information.setCharacterSize(32);
+    this->level_information.setPosition(20.f, 20.f);
+
     generator.seed(std::time(0));
 
     this->initWindow();
@@ -404,7 +441,7 @@ Game::Game(){
     this->initMap();
     this->initPlayer();
     this->initWeapon();
-    this->createEnemies();
+    this->level1();
 }
 
 Game::~Game(){
