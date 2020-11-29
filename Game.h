@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "Menu.h"
 #include "MenuHelp.h"
+#include "MenuShop.h"
 #include "Enemy.h"
 #include "Weapon.h"
 #include "Bullet.h"
@@ -19,6 +20,7 @@ private:
 
     Menu *menu;
     MenuHelp *menu_help;
+    MenuShop *menu_shop;
     Player *player;
     Map *map;
     Enemy *enemy;
@@ -52,6 +54,7 @@ private:
     void initWindow();
     void initMenu();
     void initMenuHelp();
+    void initMenuShop();
     void initMap();
     void initPlayer();
     void initWeapon();
@@ -73,10 +76,14 @@ public:
 	void updateSFMLEvents();
     void updateSFMLEventsInMenu();
     void updateSFMLEventsInMenuHelp();
+    void updateSFMLEventsInMenuShop();
     void updatePlayerMove();
     void updateEnemyMove();
     void updateBulletMove();
 	void update();
+
+    void render_level2();
+    void run_level2();
 
 	void render();
 	void run();
@@ -87,6 +94,8 @@ public:
     void run_menu_help();
     void render_menu_help();
 
+    void run_menu_shop();
+    void render_menu_shop();
 };
 
 #endif

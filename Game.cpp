@@ -20,6 +20,10 @@ void Game::initMenuHelp(){
     this->menu_help = new MenuHelp(this->window->getSize().x, this->window->getSize().y);
 }
 
+void Game::initMenuShop(){
+    this->menu_shop = new MenuShop(this->window->getSize().x, this->window->getSize().y);
+}
+
 void Game::initMap(){
     this->map = new Map();
 }
@@ -102,13 +106,6 @@ void Game::updateSFMLEventsInMenu(){
                             case 2:
                                 this->window->close();
                         }
-
-                        switch (menu_help->GetPressedItem()){
-                            case 0:
-                                this->render_menu();
-                                this->run_menu();
-                                break;
-                        }
                 }
         }
 
@@ -131,6 +128,54 @@ void Game::updateSFMLEventsInMenuHelp(){
                             case 0:
                                 this->render_menu();
                                 this->run_menu();
+                                break;
+                        }
+                }
+        }
+
+        if (this->event.type == sf::Event::Closed)
+            this->window->close();
+    }
+}
+
+void Game::updateSFMLEventsInMenuShop(){
+    while (this->window->pollEvent(this->event)){
+
+        switch (event.type){
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code){
+                    case sf::Keyboard::W:
+                        menu_shop->MoveUp();
+                        break;
+
+                    case sf::Keyboard::S:
+                        menu_shop->MoveDown();
+                        break;
+
+                    case sf::Keyboard::Return:
+                        switch (menu_shop->GetPressedItem()){
+                            case 0:
+                                coin->value--;
+                                // player.movement_speed = player.movement_speed + 0.25;
+                                this->next_level();
+                                this->run();
+                                break;
+                            case 1:
+                                coin->value--;
+                                // bullet->cooldown = bullet->cooldown - 0.25;
+                                this->next_level();
+                                this->run();
+                                break;
+                            case 2:
+                                coin->value--;
+                                // bullet->velocity = bullet->velocity + 0.25;
+                                this->next_level();
+                                this->run();
+                                break;
+                            case 3:
+                                this->next_level();
+                                this->run();
                                 break;
                         }
                 }
@@ -296,7 +341,8 @@ void Game::updateBulletMove(){
 
                     if (this->enemies.size() == 0){
                         this->current_level++;
-                        this->next_level();
+                        this->render_menu_shop();
+                        this->run_menu_shop();
                     }
                 }
                 break;
@@ -349,21 +395,22 @@ void Game::render(){
 
 void Game::render_menu(){
     this->window->clear();
-
     this->window->draw(this->menu->background);
-
     this->menu->drawMenu(this->window); 
-
     this->window->display();
 }
 
 void Game::render_menu_help(){
     this->window->clear();
-
     this->window->draw(this->menu_help->background);
-
     this->menu_help->drawMenuHelp(this->window); 
+    this->window->display();
+}
 
+void Game::render_menu_shop(){
+    this->window->clear();
+    this->window->draw(this->menu_shop->background);
+    this->menu_shop->drawMenuShop(this->window); 
     this->window->display();
 }
 
@@ -386,6 +433,13 @@ void Game::run_menu_help(){
     while (this->window->isOpen()){
         this->updateSFMLEventsInMenuHelp();
         this->render_menu_help();
+    }
+}
+
+void Game::run_menu_shop(){
+    while (this->window->isOpen()){
+        this->updateSFMLEventsInMenuShop();
+        this->render_menu_shop();
     }
 }
 
@@ -438,6 +492,7 @@ Game::Game(){
     this->initWindow();
     this->initMenu(); 
     this->initMenuHelp();
+    this->initMenuShop();
     this->initMap();
     this->initPlayer();
     this->initWeapon();

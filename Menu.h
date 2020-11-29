@@ -27,6 +27,10 @@ public:
     sf::Font font_title;
     sf::Text menu[MAX_NUMBER_OF_ITEMS];    
     sf::Text title;
+    sf::Text title1;
+    sf::Text menu0;
+    sf::Text menu1;
+    sf::Text menu2;
 
 };
 

@@ -1,19 +1,19 @@
-#ifndef MENUHELP_H
-#define MENUHELP_H
+#ifndef MENUSHOP_H
+#define MENUSHOP_H
 
-#define MAX_NUMBER_OF_ITEMS 1
+#define MAX_NUMBER_OF_ITEMS 4
 
 #include "libraries.h"
 #include "constans.h"
 
-class MenuHelp{
+class MenuShop{
 
 public:
 
-    MenuHelp(float width, float height);  
-    ~MenuHelp();
+    MenuShop(float width, float height);  
+    ~MenuShop();
 
-    void drawMenuHelp (sf::RenderWindow* window);
+    void drawMenuShop (sf::RenderWindow* window);
     void MoveUp();
     void MoveDown();
     
@@ -31,6 +31,9 @@ public:
     sf::Text help;
     sf::Text help1;
     sf::Text menu0;
+    sf::Text menu1;
+    sf::Text menu2;
+    sf::Text menu3;
 
 };
 

@@ -27,11 +27,35 @@ Menu::Menu(float width, float height){
     menu[2].setScale(2, 2);
     menu[2].setPosition(sf::Vector2f(width/2 - 70, 780));
 
+    menu0.setFont(font);
+    menu0.setColor(sf::Color::White);
+    menu0.setString("PLAY");
+    menu0.setScale(2, 2);
+    menu0.setPosition(sf::Vector2f(width/2 - 68, 582));
+
+    menu1.setFont(font);
+    menu1.setColor(sf::Color::White);
+    menu1.setString("HELP");
+    menu1.setScale(2, 2);
+    menu1.setPosition(sf::Vector2f(width/2 - 68, 682));
+
+    menu2.setFont(font);
+    menu2.setColor(sf::Color::White);
+    menu2.setString("EXIT");
+    menu2.setScale(2, 2);
+    menu2.setPosition(sf::Vector2f(width/2 - 68, 782));
+
     title.setFont(font_title);
     title.setColor(sf::Color::Red);
     title.setString("SUPER FANCY MAGIC LUKE");
     title.setScale(2, 2);
     title.setPosition(sf::Vector2f(200, 200));
+
+    title1.setFont(font_title);
+    title1.setColor(sf::Color::Black);
+    title1.setString("SUPER FANCY MAGIC LUKE");
+    title1.setScale(2, 2);
+    title1.setPosition(sf::Vector2f(202, 202));
 
     selectedItemIndex = 0;
 }
@@ -43,7 +67,11 @@ Menu::~Menu(){
 
 void Menu::drawMenu(sf::RenderWindow* window){
 
+    window->draw(this->title1);
     window->draw(this->title);
+    window->draw(this->menu0);
+    window->draw(this->menu1);
+    window->draw(this->menu2);
 
     for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++){
         window->draw(this->menu[i]);
