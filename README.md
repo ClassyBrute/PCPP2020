@@ -48,6 +48,9 @@ TODO na 01.12.2020:
 Stan gry na 01.12.2020:
 - wypadanie przedmiotów z przeciwników
 - przygotowanie pierwszych dwóch poziomów gry
+- po przejściu każdego poziomu uruchamia się sklep, w którym można kupić ulepszenia broni i postaci
+- ulepszony wygląd menu i sklepu
 
 TODO na 15.12.2020:
 - stworzenie wszystkich 10 poziomów
+- dodanie zakończenia gry, podliczenie punktów i statystyk
