@@ -41,6 +41,13 @@ Stan gry na 17.11.2020:
 
 TODO na 01.12.2020:
 - nowa mapa
-- wypadanie przedmiotów z przeciwnikó
+- wypadanie przedmiotów z przeciwników
 - przygotowanie pierwszego poziomu
 - dodanie możliwości umierania gracza
+
+Stan gry na 01.12.2020:
+- wypadanie przedmiotów z przeciwników
+- przygotowanie pierwszych dwóch poziomów gry
+
+TODO na 15.12.2020:
+- stworzenie wszystkich 10 poziomów
