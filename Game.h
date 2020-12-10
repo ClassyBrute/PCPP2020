@@ -6,6 +6,7 @@
 #include "Menu.h"
 #include "MenuHelp.h"
 #include "MenuShop.h"
+#include "MenuGameEnd.h"
 #include "Enemy.h"
 #include "Weapon.h"
 #include "Bullet.h"
@@ -21,6 +22,7 @@ private:
     Menu *menu;
     MenuHelp *menu_help;
     MenuShop *menu_shop;
+    MenuGameEnd *menu_game_end;
     Player *player;
     Map *map;
     Enemy *enemy;
@@ -55,6 +57,7 @@ private:
     void initMenu();
     void initMenuHelp();
     void initMenuShop();
+    void initMenuGameEnd();
     void initMap();
     void initPlayer();
     void initWeapon();
@@ -71,19 +74,25 @@ public:
     void drawBullets();
     void level1();
     void level2();
+    void level3();
+    void level4();
+    void level5();
+    void level6();
+    void level7();
+    void level8();
+    void level9();
+    void level10();
     void next_level();
 
 	void updateSFMLEvents();
     void updateSFMLEventsInMenu();
     void updateSFMLEventsInMenuHelp();
     void updateSFMLEventsInMenuShop();
+    void updateSFMLEventsInMenuGameEnd();
     void updatePlayerMove();
     void updateEnemyMove();
     void updateBulletMove();
 	void update();
-
-    void render_level2();
-    void run_level2();
 
 	void render();
 	void run();
@@ -96,6 +105,9 @@ public:
 
     void run_menu_shop();
     void render_menu_shop();
+
+    void run_menu_game_end();
+    void render_menu_game_end();
 };
 
 #endif

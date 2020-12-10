@@ -26,6 +26,14 @@ void Player::move(sf::Vector2f coordinates){
     this->character.setPosition(this->coordinates);
 }
 
+void Player::reset_position(){
+    float player_width = (constans::width_window / 2) - (player_texture.getSize().x / 2);
+    float player_height = (constans::height_window / 2) - (player_texture.getSize().y / 2);
+    
+    this->coordinates = {player_width, player_height};
+    this->character.setPosition(coordinates);
+}
+
 void Player::health(int player_health){
     this->player_health += player_health;
 

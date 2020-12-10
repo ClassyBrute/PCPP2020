@@ -24,6 +24,10 @@ void Game::initMenuShop(){
     this->menu_shop = new MenuShop(this->window->getSize().x, this->window->getSize().y);
 }
 
+void Game::initMenuGameEnd(){
+    this->menu_game_end = new MenuGameEnd(this->window->getSize().x, this->window->getSize().y);
+}
+
 void Game::initMap(){
     this->map = new Map();
 }
@@ -33,7 +37,7 @@ void Game::initPlayer(){
 }
 
 void Game::initWeapon(){
-    this->weapon = new Weapon("textures/weapon.png", sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 2.0, 10.f);
+    this->weapon = new Weapon("textures/weapon.png", sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 20.0, 5.f);
 }
 
 void Game::initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin, int damage, float speed, int speed_attack){
@@ -60,13 +64,124 @@ void Game::level2(){
     this->initEnemy({1000.f, 20.f}, 100, "textures/enemy2.png", 20, 3.f, 3);
 }
 
+void Game::level3(){
+    this->initEnemy({10.f, 10.f}, 130, "textures/enemy.png", 30, 3.f, 5);
+    this->initEnemy({900.f, 800.f}, 150, "textures/enemy2.png", 15, 2.f, 4);
+    this->initEnemy({1000.f, 800.f}, 110, "textures/enemy.png", 20, 2.f, 3);
+    this->initEnemy({900.f, 25.f}, 120, "textures/enemy2.png", 20, 3.5f, 3);
+    this->initEnemy({150.f, 500.f}, 150, "textures/enemy2.png", 20, 2.f, 5);
+}
+
+void Game::level4(){
+    this->initEnemy({10.f, 10.f}, 130, "textures/enemy.png", 30, 3.f, 5);
+    this->initEnemy({30.f, 500.f}, 100, "textures/enemy.png", 20, 2.5f, 6);
+    this->initEnemy({900.f, 800.f}, 150, "textures/enemy2.png", 15, 2.f, 4);
+    this->initEnemy({1000.f, 800.f}, 110, "textures/enemy.png", 20, 2.f, 3);
+    this->initEnemy({25.f, 900.f}, 120, "textures/enemy2.png", 20, 3.5f, 3);
+    this->initEnemy({300.f, 50.f}, 150, "textures/enemy2.png", 20, 2.f, 5);
+    this->initEnemy({1000.f, 20.f}, 100, "textures/enemy.png", 20, 3.f, 3);
+}
+
+void Game::level5(){
+    this->initEnemy({10.f, 10.f}, 150, "textures/enemy.png", 35, 3.f, 4);
+    this->initEnemy({30.f, 500.f}, 140, "textures/enemy.png", 25, 2.5f, 4);
+    this->initEnemy({900.f, 800.f}, 200, "textures/enemy2.png", 20, 2.5f, 4);
+    this->initEnemy({100.f, 800.f}, 160, "textures/enemy.png", 40, 2.5f, 3);
+    this->initEnemy({25.f, 900.f}, 150, "textures/enemy2.png", 30, 3.5f, 3);
+    this->initEnemy({300.f, 50.f}, 150, "textures/enemy2.png", 35, 2.5f, 4);
+    this->initEnemy({1000.f, 20.f}, 130, "textures/enemy.png", 45, 3.f, 2);
+}
+
+void Game::level6(){
+    this->initEnemy({10.f, 500.f}, 170, "textures/enemy.png", 35, 4.f, 3);
+    this->initEnemy({30.f, 500.f}, 170, "textures/enemy.png", 35, 2.5f, 2);
+    this->initEnemy({1000.f, 800.f}, 250, "textures/enemy2.png", 25, 4.f, 4);
+    this->initEnemy({100.f, 800.f}, 210, "textures/enemy.png", 40, 2.5f, 3);
+    this->initEnemy({25.f, 900.f}, 200, "textures/enemy2.png", 35, 4.f, 3);
+    this->initEnemy({300.f, 50.f}, 200, "textures/enemy2.png", 40, 2.5f, 3);
+    this->initEnemy({1000.f, 70.f}, 160, "textures/enemy.png", 50, 3.5f, 2);
+}
+
+void Game::level7(){
+    this->initEnemy({10.f, 500.f}, 210, "textures/enemy.png", 60, 4.f, 2);
+    this->initEnemy({30.f, 500.f}, 210, "textures/enemy.png", 40, 3.f, 2);
+    this->initEnemy({1000.f, 800.f}, 260, "textures/enemy2.png", 35, 5.f, 3);
+    this->initEnemy({100.f, 800.f}, 210, "textures/enemy.png", 40, 3.f, 3);
+    this->initEnemy({25.f, 900.f}, 230, "textures/enemy2.png", 45, 4.f, 3);
+     this->initEnemy({25.f, 700.f}, 210, "textures/enemy2.png", 40, 4.f, 2);
+    this->initEnemy({300.f, 50.f}, 220, "textures/enemy2.png", 40, 4.f, 2);
+    this->initEnemy({1000.f, 70.f}, 220, "textures/enemy.png", 60, 4.f, 2);
+}
+
+void Game::level8(){
+    this->initEnemy({10.f, 500.f}, 240, "textures/enemy.png", 70, 4.f, 2);
+    this->initEnemy({30.f, 500.f}, 240, "textures/enemy.png", 70, 4.f, 2);
+    this->initEnemy({1000.f, 800.f}, 300, "textures/enemy2.png", 45, 4.f, 1);
+    this->initEnemy({100.f, 800.f}, 250, "textures/enemy.png", 55, 4.f, 2);
+    this->initEnemy({25.f, 900.f}, 260, "textures/enemy2.png", 50, 4.f, 2);
+     this->initEnemy({25.f, 700.f}, 250, "textures/enemy2.png", 60, 4.f, 2);
+    this->initEnemy({300.f, 50.f}, 250, "textures/enemy2.png", 50, 4.f, 2);
+    this->initEnemy({1000.f, 70.f}, 250, "textures/enemy.png", 65, 4.f, 2);
+}
+
+void Game::level9(){
+    this->initEnemy({10.f, 500.f}, 260, "textures/enemy.png", 70, 4.f, 2);
+    this->initEnemy({30.f, 500.f}, 270, "textures/enemy.png", 70, 4.f, 2);
+    this->initEnemy({1000.f, 800.f}, 310, "textures/enemy2.png", 55, 4.f, 1);
+    this->initEnemy({100.f, 800.f}, 280, "textures/enemy.png", 60, 4.f, 2);
+    this->initEnemy({25.f, 900.f}, 260, "textures/enemy2.png", 60, 4.f, 2);
+     this->initEnemy({25.f, 700.f}, 290, "textures/enemy2.png", 65, 4.f, 2);
+    this->initEnemy({300.f, 50.f}, 290, "textures/enemy2.png", 60, 4.f, 2);
+    this->initEnemy({1000.f, 70.f}, 280, "textures/enemy.png", 70, 4.f, 2);
+}
+
+void Game::level10(){
+    this->initEnemy({10.f, 500.f}, 300, "textures/enemy.png", 70, 4.f, 2);
+    this->initEnemy({30.f, 500.f}, 310, "textures/enemy.png", 70, 4.f, 2);
+    this->initEnemy({1000.f, 800.f}, 360, "textures/enemy2.png", 50, 4.f, 1);
+    this->initEnemy({100.f, 800.f}, 300, "textures/enemy.png", 55, 4.f, 2);
+    this->initEnemy({25.f, 900.f}, 300, "textures/enemy2.png", 60, 4.f, 2);
+     this->initEnemy({25.f, 700.f}, 280, "textures/enemy2.png", 60, 4.f, 2);
+    this->initEnemy({300.f, 50.f}, 280, "textures/enemy2.png", 60, 4.f, 2);
+    this->initEnemy({1000.f, 70.f}, 270, "textures/enemy.png", 65, 4.f, 2);
+}
+
 void Game::next_level(){
+    this->player->reset_position();
     switch(this->current_level){
         case 2:
             this->level2();
             break;
+        case 3:
+            this->level3();
+            break;
+        case 4:
+            this->level4();
+            break;
+        case 5:
+            this->level5();
+            break;
+        case 6:
+            this->level6();
+            break;
+        case 7:
+            this->level7();
+            break;
+        case 8:
+            this->level8();
+            break;
+        case 9:
+            this->level9();
+            break;
+        case 10:
+            this->level10();
+            break;
+
         default:
-            std::cout << "Win\n";
+
+            this->render_menu_game_end();
+            this->run_menu_game_end();
+
             break;
 
     }
@@ -177,6 +292,37 @@ void Game::updateSFMLEventsInMenuShop(){
                                 this->next_level();
                                 this->run();
                                 break;
+                        }
+                }
+        }
+
+        if (this->event.type == sf::Event::Closed)
+            this->window->close();
+    }
+}
+
+void Game::updateSFMLEventsInMenuGameEnd(){
+    while (this->window->pollEvent(this->event)){
+
+        switch (event.type){
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code){
+                    case sf::Keyboard::W:
+                        menu_game_end->MoveUp();
+                        break;
+
+                    case sf::Keyboard::S:
+                        menu_game_end->MoveDown();
+                        break;
+
+                    case sf::Keyboard::Return:
+                        switch (menu_game_end->GetPressedItem()){
+                            case 0:
+                                this->run();
+                                break;
+                            case 1:
+                                this->window->close();
                         }
                 }
         }
@@ -414,6 +560,13 @@ void Game::render_menu_shop(){
     this->window->display();
 }
 
+void Game::render_menu_game_end(){
+    this->window->clear();
+    this->window->draw(this->menu_game_end->background);
+    this->menu_game_end->drawMenuGameEnd(this->window); 
+    this->window->display();
+}
+
 void Game::run(){
 	while (this->window->isOpen())
     {
@@ -443,6 +596,13 @@ void Game::run_menu_shop(){
     }
 }
 
+void Game::run_menu_game_end(){
+    while (this->window->isOpen()){
+        this->updateSFMLEventsInMenuGameEnd();
+        this->render_menu_game_end();
+    }
+}
+
 void Game::weapon_position(){
     this->weapon->weapon.setPosition(sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2));
     
@@ -463,7 +623,10 @@ void Game::weapon_position(){
 
 void Game::drawBullets(){  
     this->stop = clock();
-    double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / 10);
+
+    // tu zmienilem zeby szybciej dzialalo u mnie
+
+    double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / 100);
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (start == 0 || elapsed >= this->weapon->cooldown)){
         this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
@@ -493,6 +656,7 @@ Game::Game(){
     this->initMenu(); 
     this->initMenuHelp();
     this->initMenuShop();
+    this->initMenuGameEnd();
     this->initMap();
     this->initPlayer();
     this->initWeapon();
