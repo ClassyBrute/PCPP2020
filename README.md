@@ -54,3 +54,12 @@ Stan gry na 01.12.2020:
 TODO na 15.12.2020:
 - stworzenie wszystkich 10 poziomów
 - dodanie zakończenia gry, podliczenie punktów i statystyk
+
+Stan gry na 15.12.2020:
+- przeciwnicy pojawiają się na wszystkich poziomach
+- szkielet ekranu końcowego wyświetla się po zakończeniu gry
+
+TODO na 12.01.2021:
+- poprawa tekstur w grze
+- dopracowanie menu końcowego
+- dopracowanie sklepu
