@@ -58,8 +58,10 @@ TODO na 15.12.2020:
 Stan gry na 15.12.2020:
 - przeciwnicy pojawiają się na wszystkich poziomach
 - szkielet ekranu końcowego wyświetla się po zakończeniu gry
+- stworzone wszystkie poziomy gry
 
 TODO na 12.01.2021:
 - poprawa tekstur w grze
 - dopracowanie menu końcowego
 - dopracowanie sklepu
+- zrobinie poziomów trudności gry
