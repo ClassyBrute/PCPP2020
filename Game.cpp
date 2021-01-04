@@ -25,7 +25,7 @@ void Game::initMenuShop(){
 }
 
 void Game::initMenuGameEnd(){
-    this->menu_game_end = new MenuGameEnd(this->window->getSize().x, this->window->getSize().y);
+    this->menu_game_end = new MenuGameEnd();
 }
 
 void Game::initMap(){
@@ -108,7 +108,7 @@ void Game::level7(){
     this->initEnemy({1000.f, 800.f}, 260, "textures/enemy2.png", 35, 5.f, 3);
     this->initEnemy({100.f, 800.f}, 210, "textures/enemy.png", 40, 3.f, 3);
     this->initEnemy({25.f, 900.f}, 230, "textures/enemy2.png", 45, 4.f, 3);
-     this->initEnemy({25.f, 700.f}, 210, "textures/enemy2.png", 40, 4.f, 2);
+    this->initEnemy({25.f, 700.f}, 210, "textures/enemy2.png", 40, 4.f, 2);
     this->initEnemy({300.f, 50.f}, 220, "textures/enemy2.png", 40, 4.f, 2);
     this->initEnemy({1000.f, 70.f}, 220, "textures/enemy.png", 60, 4.f, 2);
 }
@@ -119,7 +119,7 @@ void Game::level8(){
     this->initEnemy({1000.f, 800.f}, 300, "textures/enemy2.png", 45, 4.f, 1);
     this->initEnemy({100.f, 800.f}, 250, "textures/enemy.png", 55, 4.f, 2);
     this->initEnemy({25.f, 900.f}, 260, "textures/enemy2.png", 50, 4.f, 2);
-     this->initEnemy({25.f, 700.f}, 250, "textures/enemy2.png", 60, 4.f, 2);
+    this->initEnemy({25.f, 700.f}, 250, "textures/enemy2.png", 60, 4.f, 2);
     this->initEnemy({300.f, 50.f}, 250, "textures/enemy2.png", 50, 4.f, 2);
     this->initEnemy({1000.f, 70.f}, 250, "textures/enemy.png", 65, 4.f, 2);
 }
@@ -130,7 +130,7 @@ void Game::level9(){
     this->initEnemy({1000.f, 800.f}, 310, "textures/enemy2.png", 55, 4.f, 1);
     this->initEnemy({100.f, 800.f}, 280, "textures/enemy.png", 60, 4.f, 2);
     this->initEnemy({25.f, 900.f}, 260, "textures/enemy2.png", 60, 4.f, 2);
-     this->initEnemy({25.f, 700.f}, 290, "textures/enemy2.png", 65, 4.f, 2);
+    this->initEnemy({25.f, 700.f}, 290, "textures/enemy2.png", 65, 4.f, 2);
     this->initEnemy({300.f, 50.f}, 290, "textures/enemy2.png", 60, 4.f, 2);
     this->initEnemy({1000.f, 70.f}, 280, "textures/enemy.png", 70, 4.f, 2);
 }
@@ -141,14 +141,18 @@ void Game::level10(){
     this->initEnemy({1000.f, 800.f}, 360, "textures/enemy2.png", 50, 4.f, 1);
     this->initEnemy({100.f, 800.f}, 300, "textures/enemy.png", 55, 4.f, 2);
     this->initEnemy({25.f, 900.f}, 300, "textures/enemy2.png", 60, 4.f, 2);
-     this->initEnemy({25.f, 700.f}, 280, "textures/enemy2.png", 60, 4.f, 2);
+    this->initEnemy({25.f, 700.f}, 280, "textures/enemy2.png", 60, 4.f, 2);
     this->initEnemy({300.f, 50.f}, 280, "textures/enemy2.png", 60, 4.f, 2);
     this->initEnemy({1000.f, 70.f}, 270, "textures/enemy.png", 65, 4.f, 2);
 }
 
 void Game::next_level(){
     this->player->reset_position();
+    this->bullets.clear();
     switch(this->current_level){
+        case 1:
+            this->level1();
+            break;
         case 2:
             this->level2();
             break;
@@ -178,7 +182,7 @@ void Game::next_level(){
             break;
 
         default:
-
+            this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->gold, this->time);
             this->render_menu_game_end();
             this->run_menu_game_end();
 
@@ -212,6 +216,7 @@ void Game::updateSFMLEventsInMenu(){
                     case sf::Keyboard::Return:
                         switch (menu->GetPressedItem()){
                             case 0:
+                                clock.restart();
                                 this->run();
                                 break;
                             case 1:
@@ -269,29 +274,35 @@ void Game::updateSFMLEventsInMenuShop(){
                         break;
 
                     case sf::Keyboard::Return:
-                        switch (menu_shop->GetPressedItem()){
-                            case 0:
-                                coin->value--;
-                                // player.movement_speed = player.movement_speed + 0.25;
-                                this->next_level();
-                                this->run();
-                                break;
-                            case 1:
-                                coin->value--;
-                                // bullet->cooldown = bullet->cooldown - 0.25;
-                                this->next_level();
-                                this->run();
-                                break;
-                            case 2:
-                                coin->value--;
-                                // bullet->velocity = bullet->velocity + 0.25;
-                                this->next_level();
-                                this->run();
-                                break;
-                            case 3:
-                                this->next_level();
-                                this->run();
-                                break;
+                        if (this->player->gold >= 50){
+                            switch (menu_shop->GetPressedItem()){
+                                case 0:
+                                    this->player->gold -= 50;
+                                    this->speed_player  += 1;
+                                    this->next_level();
+                                    this->run();
+                                    break;
+                                case 1:
+                                    this->player->gold -= 50;
+                                    this->speed_bullet  += 100;
+                                    this->next_level();
+                                    this->run();
+                                    break;
+                                case 2:
+                                    this->player->gold -= 50;
+                                    this->weapon->damage += 20;
+                                    this->next_level();
+                                    this->run();
+                                    break;
+                                case 3:
+                                    this->next_level();
+                                    this->run();
+                                    break;
+                            }  
+                        }
+                        else{
+                            this->next_level();
+                            this->run();
                         }
                 }
         }
@@ -319,6 +330,15 @@ void Game::updateSFMLEventsInMenuGameEnd(){
                     case sf::Keyboard::Return:
                         switch (menu_game_end->GetPressedItem()){
                             case 0:
+                                clock.restart();
+                                this->player->player_health = 100;
+                                this->current_level = 1;
+                                this->coins.clear();
+                                this->hearts.clear();
+                                this->player->gold = 100;
+                                this->enemies.clear();
+                                this->menu_game_end->dead_enemies = 0;
+                                this->next_level();
                                 this->run();
                                 break;
                             case 1:
@@ -333,15 +353,15 @@ void Game::updateSFMLEventsInMenuGameEnd(){
 }
 
 void Game::updatePlayerMove(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){     
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){  
         if (this->player->coordinates.y <= 0){
             this->player->coordinates.y == 0;
         }
         else{
-            this->player->move({0.f, -5.f});
+            this->player->move({0.f, -(5.f + this->speed_player)});
             for (unsigned i = 0; i < this->map->walls_lvl1.size(); i++){
                 if (this->map->walls_lvl1[i].getGlobalBounds().intersects(this->player->character.getGlobalBounds()))
-                    this->player->move({0.f, 5.f});    
+                    this->player->move({0.f, 5.f + this->speed_player});    
             }
         }
     }
@@ -351,10 +371,10 @@ void Game::updatePlayerMove(){
             this->player->coordinates.x == 0;
         }
         else{
-            this->player->move({-5.f, 0.f});
+            this->player->move({-(5.f + this->speed_player), 0.f});
             for (unsigned i = 0; i < this->map->walls_lvl1.size(); i++){
                 if (this->map->walls_lvl1[i].getGlobalBounds().intersects(this->player->character.getGlobalBounds()))
-                    this->player->move({5.f, 0.f});    
+                    this->player->move({5.f + this->speed_player, 0.f});    
             }
         }
     }
@@ -364,10 +384,10 @@ void Game::updatePlayerMove(){
             this->player->coordinates.y == constans::height_window - this->player->player_texture.getSize().y;
         }
         else{
-            this->player->move({0.f, 5.f});
+            this->player->move({0.f, 5.f + this->speed_player});
             for (unsigned i = 0; i < this->map->walls_lvl1.size(); i++){
                 if (this->map->walls_lvl1[i].getGlobalBounds().intersects(this->player->character.getGlobalBounds()))
-                    this->player->move({0.f, -5.f});    
+                    this->player->move({0.f, -(5.f + this->speed_player)});    
             }
         }
     }
@@ -377,10 +397,10 @@ void Game::updatePlayerMove(){
             this->player->coordinates.x == constans::width_window - this->player->player_texture.getSize().x;
         }
         else{
-            this->player->move({5.f, 0.f});
+            this->player->move({5.f + this->speed_player, 0.f});
             for (unsigned i = 0; i < this->map->walls_lvl1.size(); i++){
                 if (this->map->walls_lvl1[i].getGlobalBounds().intersects(this->player->character.getGlobalBounds()))
-                    this->player->move({-5.f, 0.f});    
+                    this->player->move({-(5.f + this->speed_player), 0.f});    
             }
         }
     }
@@ -439,8 +459,14 @@ void Game::updateEnemyMove(){
                 }
             }
         }
-        else
+        else{
             this->player->health(-this->enemies[i].attack());
+            if (this->player->player_health <= 0){
+                this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->gold, this->time);
+                this->render_menu_game_end();
+                this->run_menu_game_end();
+            }
+        }
     }
 }
 
@@ -471,9 +497,10 @@ void Game::updateBulletMove(){
             if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
                 this->bullets.erase(this->bullets.begin() + i);
                 this->enemies[j].health(this->weapon->damage);
-                
+            
                 if (this->enemies[j].enemy_health <= 0){
                     this->drop = random(this->generator);
+                    this->menu_game_end->dead_enemies++;
 
                     if (this->drop < 5){
                         this->coin = new Coin(this->enemies[j].character.getPosition(), 20);
@@ -507,6 +534,7 @@ void Game::update(){
 
     this->window->clear();
 
+    this->time = clock.getElapsedTime().asSeconds();
 }
 
 void Game::render(){
@@ -532,7 +560,7 @@ void Game::render(){
     this->window->draw(this->player->character);
     this->drawEnemies();
 
-    std::string text = "Level: " + std::to_string(this->current_level);
+    std::string text = "Level: " + std::to_string(this->current_level) + "\nCoins: " + std::to_string(this->player->gold) + "\nHealth: " + std::to_string(this->player->player_health);
     this->level_information.setString(text);
     this->window->draw(level_information);
 
@@ -622,11 +650,9 @@ void Game::weapon_position(){
 }
 
 void Game::drawBullets(){  
-    this->stop = clock();
+    // this->stop = clock();
 
-    // tu zmienilem zeby szybciej dzialalo u mnie
-
-    double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / 100);
+    double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / (1000 + this->speed_bullet));
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (start == 0 || elapsed >= this->weapon->cooldown)){
         this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
@@ -635,7 +661,7 @@ void Game::drawBullets(){
 
         this->bullets.push_back(*this->bullet);
 
-        this->start = clock();
+        // this->start = clock();
     }
 }
 
@@ -644,11 +670,15 @@ Game::Game(){
 
     this->current_level = 1;
 
+    this->speed_bullet = 0;
+
     this->font.loadFromFile("textures/font.ttf");
 
     this->level_information.setFont(font);
     this->level_information.setCharacterSize(32);
     this->level_information.setPosition(20.f, 20.f);
+
+    this->speed_player = 0;
 
     generator.seed(std::time(0));
 
@@ -660,7 +690,7 @@ Game::Game(){
     this->initMap();
     this->initPlayer();
     this->initWeapon();
-    this->level1();
+    this->next_level();
 }
 
 Game::~Game(){

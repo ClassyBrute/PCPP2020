@@ -19,7 +19,6 @@ public:
     void move(sf::Vector2f coordinates);
     void reset_position();
     void health(int player_health);
-    void death();
     void bank(int gold);
 };
 

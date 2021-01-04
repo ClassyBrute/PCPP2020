@@ -11,19 +11,19 @@ MenuShop::MenuShop(float width, float height){
 
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::Red);
-    menu[0].setString("+0.25 MOVEMENT SPEED - 1 COIN");
+    menu[0].setString("MOVEMENT SPEED - 50 COIN");
     menu[0].setScale(2, 2);
     menu[0].setPosition(sf::Vector2f(width/5 - 100, 400));
 
     menu[1].setFont(font);
     menu[1].setColor(sf::Color::White);
-    menu[1].setString("+0.25 FIRE RATE - 1 COIN");
+    menu[1].setString("FIRE RATE - 50 COIN");
     menu[1].setScale(2, 2);
     menu[1].setPosition(sf::Vector2f(width/5 - 100, 500));
 
     menu[2].setFont(font);
     menu[2].setColor(sf::Color::White);
-    menu[2].setString("+0.25 SHOT SPEED - 1 COIN");
+    menu[2].setString("DAMAGE - 50 COIN");
     menu[2].setScale(2, 2);
     menu[2].setPosition(sf::Vector2f(width/5 - 100, 600));
 
@@ -35,19 +35,19 @@ MenuShop::MenuShop(float width, float height){
 
     menu0.setFont(font);
     menu0.setColor(sf::Color::Black);
-    menu0.setString("+0.25 MOVEMENT SPEED - 1 COIN");
+    menu0.setString("MOVEMENT SPEED - 50 COIN");
     menu0.setScale(2, 2);
     menu0.setPosition(sf::Vector2f(width/5 - 98, 402));
 
     menu1.setFont(font);
     menu1.setColor(sf::Color::Black);
-    menu1.setString("+0.25 FIRE RATE - 1 COIN");
+    menu1.setString("FIRE RATE - 50 COIN");
     menu1.setScale(2, 2);
     menu1.setPosition(sf::Vector2f(width/5 - 98, 502));
 
     menu2.setFont(font);
     menu2.setColor(sf::Color::Black);
-    menu2.setString("+0.25 SHOT SPEED - 1 COIN");
+    menu2.setString("DAMAGE - 50 COIN");
     menu2.setScale(2, 2);
     menu2.setPosition(sf::Vector2f(width/5 - 98, 602));
 

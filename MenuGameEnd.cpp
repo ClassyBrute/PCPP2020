@@ -1,13 +1,18 @@
 #include "MenuGameEnd.h"
 
-MenuGameEnd::MenuGameEnd(float width, float height){
+MenuGameEnd::MenuGameEnd(){
 
+    
+
+    
+}
+
+void MenuGameEnd::draw(float width, float height, int gold, float time){
     font.loadFromFile("textures/font.ttf");
     font_title.loadFromFile("textures/font_title.ttf");
 
     this->background_texture.loadFromFile("textures/menu_background.png");
     this->background.setTexture(background_texture);
-    
 
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::Red);
@@ -47,16 +52,16 @@ MenuGameEnd::MenuGameEnd(float width, float height){
 
     help.setFont(font_title);
     help.setColor(sf::Color::Black);
-    help.setString("COINS: \n"
-                    "KILLED ENEMIES: \n" 
-                    "TIME: \n" );
+    help.setString("COINS: " + std::to_string(gold) + "\n"
+                    "KILLED ENEMIES: " + std::to_string(this->dead_enemies) + "\n" 
+                    "TIME: " + std::to_string(time) + "\n" );
     help.setScale(1, 1);
     help.setPosition(sf::Vector2f(width/2 - 120, 400));
 
     help1.setFont(font_title);
     help1.setColor(sf::Color::White);
     help1.setString("COINS: \n"
-                    "KILLED ENEMIES: \n" 
+                    "KILLED ENEMIES: " + std::to_string(this->dead_enemies) + "\n" 
                     "TIME: \n" );
     help1.setScale(1, 1);
     help1.setPosition(sf::Vector2f(width/2 - 118, 402));

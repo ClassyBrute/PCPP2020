@@ -40,10 +40,21 @@ private:
     sf::Vector2f aimDir;
 	sf::Vector2f aimDirNorm;
     sf::Vector2f mouse;
+    
+    float speed_player;
+    float speed_bullet;
     float oldRotate;
 
     clock_t start;
     clock_t stop;
+
+    clock_t start_game;
+    clock_t stop_game;
+    clock_t delta;
+
+    sf::Clock clock;
+
+    float time;
 
     std::mt19937 generator;
     int drop;

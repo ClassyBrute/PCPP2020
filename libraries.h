@@ -9,6 +9,7 @@
 #include <cmath>
 #include <random>
 #include <ctime>
+#include <cstdlib>
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

@@ -10,15 +10,18 @@ class MenuGameEnd{
 
 public:
 
-    MenuGameEnd(float width, float height);
+    MenuGameEnd();
     ~MenuGameEnd();
 
+    void draw(float width, float height, int gold, float time);
     void drawMenuGameEnd(sf::RenderWindow* window);
     void MoveUp();
     void MoveDown();
     
     int GetPressedItem() { return selectedItemIndex; }
     int selectedItemIndex;
+
+    int dead_enemies = 0;
 
     sf::Texture background_texture;
     sf::Sprite background;

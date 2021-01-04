@@ -37,20 +37,11 @@ void Player::reset_position(){
 void Player::health(int player_health){
     this->player_health += player_health;
 
-    if (this->player_health <= 0)
-        this->death();
-    else if (this->player_health > 100)
+    if (this->player_health > 100)
         this->player_health = 100;
-        
 
-    std::cout << this->player_health << '\n';
-}
-
-void Player::death(){
-    this->player_health = 100;
 }
 
 void Player::bank(int gold){
     this->gold += gold;
-    std::cout << this->gold << '\n';
 }
