@@ -15,6 +15,7 @@ public:
     sf::Vector2f coordinates;
     int player_health;
     int gold;
+    int total_gold;
 
     void move(sf::Vector2f coordinates);
     void reset_position();

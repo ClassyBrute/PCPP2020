@@ -1,19 +1,19 @@
-#ifndef MENUSHOP_H
-#define MENUSHOP_H
+#ifndef MENUDIFFIC_H
+#define MENUDIFFIC_H
 
-#define MAX_NUMBER_OF_ITEMS 4
+#define MAX_NUMBER_OF_ITEMS 3
 
 #include "libraries.h"
 #include "constans.h"
 
-class MenuShop{
+class MenuDiffic{
 
 public:
 
-    MenuShop(float width, float height);  
-    ~MenuShop();
+    MenuDiffic(float width, float height);  
+    ~MenuDiffic();
 
-    void drawMenuShop (sf::RenderWindow* window);
+    void drawMenuDiffic (sf::RenderWindow* window);
     void MoveUp();
     void MoveDown();
     
@@ -28,14 +28,9 @@ public:
     sf::Text menu[MAX_NUMBER_OF_ITEMS];    
     sf::Text title;
     sf::Text title1;
-    sf::Text help;
-    sf::Text help1;
-    sf::Text menu0;
-    sf::Text menu1;
     sf::Text menu2;
-    sf::Text menu3;
-    sf::Text money;
-    sf::Text money1;
+    sf::Text menu1;
+    sf::Text menu0;
 
 };
 

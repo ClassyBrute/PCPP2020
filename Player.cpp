@@ -44,4 +44,5 @@ void Player::health(int player_health){
 
 void Player::bank(int gold){
     this->gold += gold;
+    this->total_gold += gold;
 }

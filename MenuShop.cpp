@@ -82,6 +82,19 @@ MenuShop::MenuShop(float width, float height){
     title1.setScale(2, 2);
     title1.setPosition(sf::Vector2f(552, 202));
 
+    money.setFont(font_title);
+    money.setColor(sf::Color::Red);
+    // money.setString("YOU DON'T HAVE \nENOUGH MONEY");
+    money.setScale(1, 1);
+    money.setPosition(sf::Vector2f(850, 50));
+
+    money1.setFont(font_title);
+    money1.setColor(sf::Color::Black);
+    // money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
+    money1.setScale(1, 1);
+    money1.setPosition(sf::Vector2f(852, 52));
+
+
     selectedItemIndex = 0;
 }
 
@@ -100,6 +113,8 @@ void MenuShop::drawMenuShop(sf::RenderWindow* window){
     window->draw(this->menu1);
     window->draw(this->menu2);
     window->draw(this->menu3);
+    window->draw(this->money);
+    window->draw(this->money1);
 
 
     for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++){

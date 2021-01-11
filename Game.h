@@ -7,6 +7,7 @@
 #include "MenuHelp.h"
 #include "MenuShop.h"
 #include "MenuGameEnd.h"
+#include "MenuDiffic.h"
 #include "Enemy.h"
 #include "Weapon.h"
 #include "Bullet.h"
@@ -18,11 +19,13 @@ class Game{
 private:
     sf::RenderWindow *window;
     sf::Event event;
+    // sf::Image *icon;
 
     Menu *menu;
     MenuHelp *menu_help;
     MenuShop *menu_shop;
     MenuGameEnd *menu_game_end;
+    MenuDiffic *menu_diffic;
     Player *player;
     Map *map;
     Enemy *enemy;
@@ -69,6 +72,7 @@ private:
     void initMenuHelp();
     void initMenuShop();
     void initMenuGameEnd();
+    void initMenuDiffic();
     void initMap();
     void initPlayer();
     void initWeapon();
@@ -100,6 +104,7 @@ public:
     void updateSFMLEventsInMenuHelp();
     void updateSFMLEventsInMenuShop();
     void updateSFMLEventsInMenuGameEnd();
+    void updateSFMLEventsInMenuDiffic();
     void updatePlayerMove();
     void updateEnemyMove();
     void updateBulletMove();
@@ -119,6 +124,9 @@ public:
 
     void run_menu_game_end();
     void render_menu_game_end();
+
+    void run_menu_diffic();
+    void render_menu_diffic();
 };
 
 #endif

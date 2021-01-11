@@ -52,17 +52,17 @@ void MenuGameEnd::draw(float width, float height, int gold, float time){
 
     help.setFont(font_title);
     help.setColor(sf::Color::Black);
-    help.setString("COINS: " + std::to_string(gold) + "\n"
+    help.setString("TOTAL COLLECTED COINS: " + std::to_string(gold) + "\n"
                     "KILLED ENEMIES: " + std::to_string(this->dead_enemies) + "\n" 
-                    "TIME: " + std::to_string(time) + "\n" );
+                    "TIME: " + std::to_string(time) + "s\n" );
     help.setScale(1, 1);
     help.setPosition(sf::Vector2f(width/2 - 120, 400));
 
     help1.setFont(font_title);
     help1.setColor(sf::Color::White);
-    help1.setString("COINS: \n"
+    help1.setString("TOTAL COLLECTED COINS: " + std::to_string(gold) + "\n"
                     "KILLED ENEMIES: " + std::to_string(this->dead_enemies) + "\n" 
-                    "TIME: \n" );
+                    "TIME: " + std::to_string(time) + "s\n" );
     help1.setScale(1, 1);
     help1.setPosition(sf::Vector2f(width/2 - 118, 402));
 

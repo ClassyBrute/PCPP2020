@@ -3,6 +3,8 @@
 void Game::initWindow(){
     std::string title = "Super Fancy Magic Luke";
     sf::VideoMode window_bounds(constans::width_window, constans::height_window);
+    // this->icon->loadFromFile("textures/player.png");
+    // this->window->setIcon(40, 40, this->icon->getPixelsPtr());
     int frame_limit = 60;
 
     this->window = new sf::RenderWindow(window_bounds, title);
@@ -28,6 +30,10 @@ void Game::initMenuGameEnd(){
     this->menu_game_end = new MenuGameEnd();
 }
 
+void Game::initMenuDiffic(){
+    this->menu_diffic = new MenuDiffic(this->window->getSize().x, this->window->getSize().y);
+}
+
 void Game::initMap(){
     this->map = new Map();
 }
@@ -37,7 +43,7 @@ void Game::initPlayer(){
 }
 
 void Game::initWeapon(){
-    this->weapon = new Weapon("textures/weapon.png", sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 20.0, 5.f);
+    this->weapon = new Weapon("textures/weapon.png", sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 2.0, 5.f);
 }
 
 void Game::initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin, int damage, float speed, int speed_attack){
@@ -182,7 +188,7 @@ void Game::next_level(){
             break;
 
         default:
-            this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->gold, this->time);
+            this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->total_gold, this->time);
             this->render_menu_game_end();
             this->run_menu_game_end();
 
@@ -216,8 +222,10 @@ void Game::updateSFMLEventsInMenu(){
                     case sf::Keyboard::Return:
                         switch (menu->GetPressedItem()){
                             case 0:
-                                clock.restart();
-                                this->run();
+                                // clock.restart();
+                                // this->run();
+                                this->render_menu_diffic();
+                                this->run_menu_diffic();
                                 break;
                             case 1:
                                 this->render_menu_help();
@@ -225,6 +233,47 @@ void Game::updateSFMLEventsInMenu(){
                                 break;
                             case 2:
                                 this->window->close();
+                        }
+                }
+        }
+
+        if (this->event.type == sf::Event::Closed)
+            this->window->close();
+    }
+}
+
+void Game::updateSFMLEventsInMenuDiffic(){
+    while (this->window->pollEvent(this->event)){
+
+        switch (event.type){
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code){
+                    case sf::Keyboard::W:
+                        menu_diffic->MoveUp();
+                        break;
+
+                    case sf::Keyboard::S:
+                        menu_diffic->MoveDown();
+                        break;
+
+                    case sf::Keyboard::Return:
+                        switch (menu_diffic->GetPressedItem()){
+                            case 0:
+                                // clock.restart();
+                                // this->run();
+                                
+                                break;
+                            case 1:
+                                // clock.restart();
+                                // this->run();
+
+                                break;
+                            case 2:
+                                // clock.restart();
+                                // this->run();
+
+                                break;
                         }
                 }
         }
@@ -275,6 +324,8 @@ void Game::updateSFMLEventsInMenuShop(){
 
                     case sf::Keyboard::Return:
                         if (this->player->gold >= 50){
+                            // this->menu_shop->money.setString("");
+                            // this->menu_shop->money1.setString("");
                             switch (menu_shop->GetPressedItem()){
                                 case 0:
                                     this->player->gold -= 50;
@@ -301,8 +352,31 @@ void Game::updateSFMLEventsInMenuShop(){
                             }  
                         }
                         else{
-                            this->next_level();
-                            this->run();
+                            switch (menu_shop->GetPressedItem()){
+                                case 0:
+                                    // this->window->draw(menu_shop->money);
+                                    // this->window->draw(menu_shop->money1);
+                                    this->menu_shop->money.setString("YOU DON'T HAVE \nENOUGH MONEY");
+                                    this->menu_shop->money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
+
+                                    break;
+                                case 1:
+                                    this->menu_shop->money.setString("YOU DON'T HAVE \nENOUGH MONEY");
+                                    this->menu_shop->money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
+                                    // this->window->draw(menu_shop->money);
+                                    // this->window->draw(menu_shop->money1);
+                                    break;
+                                case 2:
+                                    this->menu_shop->money.setString("YOU DON'T HAVE \nENOUGH MONEY");
+                                    this->menu_shop->money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
+                                    // this->window->draw(menu_shop->money);
+                                    // this->window->draw(menu_shop->money1);
+                                    break;
+                                case 3:
+                                    this->next_level();
+                                    this->run();
+                                    break;
+                            }
                         }
                 }
         }
@@ -336,10 +410,14 @@ void Game::updateSFMLEventsInMenuGameEnd(){
                                 this->coins.clear();
                                 this->hearts.clear();
                                 this->player->gold = 100;
+                                this->player->total_gold = 100;
                                 this->enemies.clear();
                                 this->menu_game_end->dead_enemies = 0;
-                                this->next_level();
-                                this->run();
+                                
+                                this->run_menu_diffic();
+                                this->render_menu_diffic();
+                                // this->next_level();
+                                // this->run();
                                 break;
                             case 1:
                                 this->window->close();
@@ -462,7 +540,7 @@ void Game::updateEnemyMove(){
         else{
             this->player->health(-this->enemies[i].attack());
             if (this->player->player_health <= 0){
-                this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->gold, this->time);
+                this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->total_gold, this->time);
                 this->render_menu_game_end();
                 this->run_menu_game_end();
             }
@@ -514,6 +592,12 @@ void Game::updateBulletMove(){
 
                     if (this->enemies.size() == 0){
                         this->current_level++;
+
+                        if (this->player->gold >= 50){
+                            this->menu_shop->money.setString("");
+                            this->menu_shop->money1.setString("");
+                        }
+
                         this->render_menu_shop();
                         this->run_menu_shop();
                     }
@@ -581,6 +665,13 @@ void Game::render_menu_help(){
     this->window->display();
 }
 
+void Game::render_menu_diffic(){
+    this->window->clear();
+    this->window->draw(this->menu_diffic->background);
+    this->menu_diffic->drawMenuDiffic(this->window); 
+    this->window->display();
+}
+
 void Game::render_menu_shop(){
     this->window->clear();
     this->window->draw(this->menu_shop->background);
@@ -614,6 +705,13 @@ void Game::run_menu_help(){
     while (this->window->isOpen()){
         this->updateSFMLEventsInMenuHelp();
         this->render_menu_help();
+    }
+}
+
+void Game::run_menu_diffic(){
+    while (this->window->isOpen()){
+        this->updateSFMLEventsInMenuDiffic();
+        this->render_menu_diffic();
     }
 }
 
@@ -653,6 +751,7 @@ void Game::drawBullets(){
     // this->stop = clock();
 
     double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / (1000 + this->speed_bullet));
+    // double elapsed = clock.getElapsedTime().asSeconds();
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (start == 0 || elapsed >= this->weapon->cooldown)){
         this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
@@ -687,6 +786,7 @@ Game::Game(){
     this->initMenuHelp();
     this->initMenuShop();
     this->initMenuGameEnd();
+    this->initMenuDiffic();
     this->initMap();
     this->initPlayer();
     this->initWeapon();
