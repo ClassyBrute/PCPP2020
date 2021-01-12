@@ -50,10 +50,11 @@ private:
 
     float oldRotate;
 
-    clock_t start;
-    clock_t stop;
+    // clock_t start;
+    // clock_t stop;
 
     sf::Clock clock;
+    sf::Clock cooldown;
 
     float time;
 

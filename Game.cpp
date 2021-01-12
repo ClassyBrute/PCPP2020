@@ -43,7 +43,7 @@ void Game::initPlayer(){
 }
 
 void Game::initWeapon(){
-    this->weapon = new Weapon(sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 2.0, 5.f);
+    this->weapon = new Weapon(sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 0.5, 5.f);
 }
 
 void Game::initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin, int damage, float speed, int speed_attack){
@@ -344,7 +344,7 @@ void Game::updateSFMLEventsInMenuShop(){
                                     break;
                                 case 1:
                                     this->player->gold -= 50;
-                                    this->speed_bullet  += 100;
+                                    this->speed_bullet  -= 0.05;
                                     this->next_level();
                                     this->run();
                                     break;
@@ -760,20 +760,17 @@ void Game::weapon_position(){
 }
 
 void Game::drawBullets(){
-    double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / (1000 + this->speed_bullet));
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (start == 0 || elapsed >= this->weapon->cooldown)){
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (this->cooldown.getElapsedTime().asSeconds() > this->weapon->cooldown + this->speed_bullet)){
         this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
         this->bullet->bullet.setPosition(this->player->character.getPosition().x + this->player->player_texture.getSize().x / 2, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2);
         this->bullet->velocity = aimDirNorm * this->weapon->max_speed;
 
         this->bullets.push_back(*this->bullet);
+        this->cooldown.restart();
     }
 }
 
 Game::Game(){
-    this->start = 0;
-
     this->current_level = 1;
 
     this->speed_bullet = 0;
@@ -800,7 +797,6 @@ Game::Game(){
     this->initMap();
     this->initPlayer();
     this->initWeapon();
-    this->next_level();
 }
 
 Game::~Game(){
