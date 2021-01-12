@@ -5,7 +5,6 @@
 
 class Weapon{
 private:
-    sf::Texture weapon_texture;
     sf::Vector2f coordinates;
 
 public:
@@ -15,7 +14,9 @@ public:
     double cooldown;
     float max_speed;
 
-    Weapon(sf::String skin, sf::Vector2f coordinates, int damage, double cooldown, float max_speed);
+    void change_damage(int damage, int difficulty);
+
+    Weapon(sf::Vector2f coordinates, int damage, double cooldown, float max_speed);
     ~Weapon();
 };
 

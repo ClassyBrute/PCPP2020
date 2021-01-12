@@ -43,7 +43,7 @@ void Game::initPlayer(){
 }
 
 void Game::initWeapon(){
-    this->weapon = new Weapon("textures/weapon.png", sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 2.0, 5.f);
+    this->weapon = new Weapon(sf::Vector2f(this->player->character.getPosition().x + this->player->player_texture.getSize().y / 4, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2), 100, 2.0, 5.f);
 }
 
 void Game::initEnemy(sf::Vector2f coordinates, int enemy_health, sf::String skin, int damage, float speed, int speed_attack){
@@ -260,19 +260,28 @@ void Game::updateSFMLEventsInMenuDiffic(){
                     case sf::Keyboard::Return:
                         switch (menu_diffic->GetPressedItem()){
                             case 0:
-                                // clock.restart();
-                                // this->run();
-                                
+                                this->weapon->change_damage(this->weapon->damage, -this->difficulty);
+                                this->difficulty = 50;
+                                this->weapon->change_damage(this->weapon->damage, this->difficulty);
+                                clock.restart();
+                                this->next_level();
+                                this->run();
                                 break;
                             case 1:
-                                // clock.restart();
-                                // this->run();
-
+                                this->weapon->change_damage(this->weapon->damage, -this->difficulty);
+                                this->difficulty = 0;
+                                this->weapon->change_damage(this->weapon->damage, this->difficulty);
+                                clock.restart();
+                                this->next_level();
+                                this->run();
                                 break;
                             case 2:
-                                // clock.restart();
-                                // this->run();
-
+                                this->weapon->change_damage(this->weapon->damage, -this->difficulty);
+                                this->difficulty = -50;
+                                this->weapon->change_damage(this->weapon->damage, this->difficulty);
+                                clock.restart();
+                                this->next_level();
+                                this->run();
                                 break;
                         }
                 }
@@ -341,7 +350,7 @@ void Game::updateSFMLEventsInMenuShop(){
                                     break;
                                 case 2:
                                     this->player->gold -= 50;
-                                    this->weapon->damage += 20;
+                                    this->damage += 20;
                                     this->next_level();
                                     this->run();
                                     break;
@@ -413,9 +422,12 @@ void Game::updateSFMLEventsInMenuGameEnd(){
                                 this->player->total_gold = 100;
                                 this->enemies.clear();
                                 this->menu_game_end->dead_enemies = 0;
+                                this->speed_player = 0;
+                                this->speed_bullet = 0;
+                                this->damage = 0;
                                 
                                 this->run_menu_diffic();
-                                this->render_menu_diffic();
+                                // this->render_menu_diffic();
                                 // this->next_level();
                                 // this->run();
                                 break;
@@ -574,7 +586,7 @@ void Game::updateBulletMove(){
         for (unsigned j = 0; j < this->enemies.size(); j++){
             if (this->enemies[j].character.getGlobalBounds().intersects(this->bullets[i].bullet.getGlobalBounds())){
                 this->bullets.erase(this->bullets.begin() + i);
-                this->enemies[j].health(this->weapon->damage);
+                this->enemies[j].health(this->weapon->damage + this->damage);
             
                 if (this->enemies[j].enemy_health <= 0){
                     this->drop = random(this->generator);
@@ -747,11 +759,8 @@ void Game::weapon_position(){
     }
 }
 
-void Game::drawBullets(){  
-    // this->stop = clock();
-
+void Game::drawBullets(){
     double elapsed = (this->stop - this->start) / (CLOCKS_PER_SEC / (1000 + this->speed_bullet));
-    // double elapsed = clock.getElapsedTime().asSeconds();
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (start == 0 || elapsed >= this->weapon->cooldown)){
         this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
@@ -759,8 +768,6 @@ void Game::drawBullets(){
         this->bullet->velocity = aimDirNorm * this->weapon->max_speed;
 
         this->bullets.push_back(*this->bullet);
-
-        // this->start = clock();
     }
 }
 
@@ -770,6 +777,7 @@ Game::Game(){
     this->current_level = 1;
 
     this->speed_bullet = 0;
+    this->damage = 0;
 
     this->font.loadFromFile("textures/font.ttf");
 
@@ -778,6 +786,8 @@ Game::Game(){
     this->level_information.setPosition(20.f, 20.f);
 
     this->speed_player = 0;
+
+    this->difficulty = 0;
 
     generator.seed(std::time(0));
 

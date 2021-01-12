@@ -46,14 +46,12 @@ private:
     
     float speed_player;
     float speed_bullet;
+    int damage;
+
     float oldRotate;
 
     clock_t start;
     clock_t stop;
-
-    clock_t start_game;
-    clock_t stop_game;
-    clock_t delta;
 
     sf::Clock clock;
 
@@ -66,6 +64,8 @@ private:
 
     sf::Font font;
     sf::Text level_information;
+
+    int difficulty;
 
     void initWindow();
     void initMenu();
