@@ -128,6 +128,9 @@ public:
 
     void run_menu_diffic();
     void render_menu_diffic();
+
+    void player_rotate();
+    void enemy_rotate();
 };
 
 #endif
