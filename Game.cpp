@@ -325,6 +325,7 @@ void Game::updateSFMLEventsInMenuDiffic(){
     }
 }
 
+
 void Game::updateSFMLEventsInMenuHelp(){
     while (this->window->pollEvent(this->event)){
 
@@ -477,8 +478,8 @@ void Game::updateSFMLEventsInMenuGameEnd(){
 
 void Game::updatePlayerMove(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){  
-        if (this->player->coordinates.y <= 0){
-            this->player->coordinates.y == 0;
+        if (this->player->coordinates.y - this->player->player_texture.getSize().y / 2 <= 0){
+            this->player->coordinates.y - this->player->player_texture.getSize().y / 2 == 0;
         }
         else{
             this->player->move({0.f, -(5.f + this->speed_player)});
@@ -490,8 +491,8 @@ void Game::updatePlayerMove(){
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-        if (this->player->coordinates.x <= 0){
-            this->player->coordinates.x == 0;
+        if (this->player->coordinates.x - this->player->player_texture.getSize().x / 2 <= 0){
+            this->player->coordinates.x - this->player->player_texture.getSize().x / 2 == 0;
         }
         else{
             this->player->move({-(5.f + this->speed_player), 0.f});
@@ -503,7 +504,7 @@ void Game::updatePlayerMove(){
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        if (this->player->coordinates.y + this->player->player_texture.getSize().y >= constans::height_window){
+        if (this->player->coordinates.y + this->player->player_texture.getSize().y / 2 >= constans::height_window){
             this->player->coordinates.y == constans::height_window - this->player->player_texture.getSize().y;
         }
         else{
@@ -516,7 +517,7 @@ void Game::updatePlayerMove(){
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        if (this->player->coordinates.x + this->player->player_texture.getSize().x >= constans::width_window){
+        if (this->player->coordinates.x + this->player->player_texture.getSize().x / 2 >= constans::width_window){
             this->player->coordinates.x == constans::width_window - this->player->player_texture.getSize().x;
         }
         else{
@@ -553,7 +554,7 @@ void Game::updateEnemyMove(){
                 
                 for (unsigned j = 0; j < this->map->walls_lvl1.size(); j++){
                     if (this->map->walls_lvl1[j].getGlobalBounds().intersects(this->enemies[i].character.getGlobalBounds()))
-                        this->enemies[i].move({-this->enemies[i].enemy_speed, 0.f});    
+                        this->enemies[i].move({-this->enemies[i].enemy_speed * 2, 0.f});    
                 }
             }
             else if (this->player->coordinates.x < this->enemies[i].coordinates.x){
@@ -561,7 +562,7 @@ void Game::updateEnemyMove(){
 
                 for (unsigned j = 0; j < this->map->walls_lvl1.size(); j++){
                     if (this->map->walls_lvl1[j].getGlobalBounds().intersects(this->enemies[i].character.getGlobalBounds()))
-                        this->enemies[i].move({this->enemies[i].enemy_speed, 0.f});    
+                        this->enemies[i].move({this->enemies[i].enemy_speed * 2, 0.f});    
                 }
             }
             
@@ -660,6 +661,9 @@ void Game::update(){
 
     this->weapon_position();
     this->updateBulletMove();
+
+    this->player_rotate();
+    this->enemy_rotate();
 
     this->window->clear();
 
@@ -790,6 +794,39 @@ void Game::weapon_position(){
         this->oldRotate = rotation;
         mouse = sf::Vector2f(sf::Mouse::getPosition());
     }
+}
+
+void Game::player_rotate(){
+    sf::Vector2f curPos;
+    curPos.x = this->player->character.getGlobalBounds().left;
+    curPos.y = this->player->character.getGlobalBounds().top;
+    sf::Vector2f position = sf::Vector2f(sf::Mouse::getPosition(*this->window));
+
+    float dx = curPos.x - position.x;
+    float dy = curPos.y - position.y;
+
+    float rotation = (atan2(dy, dx)) * 180 / constans::PI;
+
+    this->player->character.setOrigin(this->player->player_texture.getSize().x / 2, this->player->player_texture.getSize().y / 2);
+    this->player->character.setRotation(rotation - 90);
+}
+
+void Game::enemy_rotate(){
+    for (int i = 0; i < this->enemies.size(); i++){
+        sf::Vector2f curPos;
+        curPos.x = this->enemies[i].character.getGlobalBounds().left;
+        curPos.y = this->enemies[i].character.getGlobalBounds().top;
+        sf::Vector2f position = this->player->character.getPosition();
+
+        float dx = curPos.x - position.x;
+        float dy = curPos.y - position.y;
+
+        float rotation = (atan2(dy, dx)) * 180 / constans::PI;
+
+        this->enemies[i].character.setOrigin(enemies[i].enemy_texture.getSize().x / 2, enemies[i].enemy_texture.getSize().y / 2);
+        this->enemies[i].character.setRotation(rotation - 90);
+    }
+    
 }
 
 void Game::drawBullets(){
