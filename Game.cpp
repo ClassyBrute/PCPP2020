@@ -260,6 +260,17 @@ void Game::updateSFMLEventsInMenuDiffic(){
                     case sf::Keyboard::Return:
                         switch (menu_diffic->GetPressedItem()){
                             case 0:
+
+                                this->map->walls_lvl1.clear();
+                                this->map->background.setTexture(this->map->background_texture);                                
+                                this->map->wall_hor.setTexture(this->map->wall_texture_hor);
+                                for (int i = 0; i < 5; i++)
+                                    this->map->walls_lvl1.push_back(this->map->wall_hor);
+                                
+                                this->map->wall_ver.setTexture(this->map->wall_texture_ver);
+                                for (int i = 0; i < 7; i++)
+                                    this->map->walls_lvl1.push_back(this->map->wall_ver);
+
                                 this->weapon->change_damage(this->weapon->damage, -this->difficulty);
                                 this->difficulty = 50;
                                 this->weapon->change_damage(this->weapon->damage, this->difficulty);
@@ -268,6 +279,17 @@ void Game::updateSFMLEventsInMenuDiffic(){
                                 this->run();
                                 break;
                             case 1:
+
+                                this->map->walls_lvl1.clear();
+                                this->map->background.setTexture(this->map->background_texture_normal);
+                                this->map->wall_hor.setTexture(this->map->wall_texture_hor_normal);
+                                for (int i = 0; i < 5; i++)
+                                    this->map->walls_lvl1.push_back(this->map->wall_hor);
+                                
+                                this->map->wall_ver.setTexture(this->map->wall_texture_ver_normal);
+                                for (int i = 0; i < 7; i++)
+                                    this->map->walls_lvl1.push_back(this->map->wall_ver);
+
                                 this->weapon->change_damage(this->weapon->damage, -this->difficulty);
                                 this->difficulty = 0;
                                 this->weapon->change_damage(this->weapon->damage, this->difficulty);
@@ -276,6 +298,17 @@ void Game::updateSFMLEventsInMenuDiffic(){
                                 this->run();
                                 break;
                             case 2:
+
+                                this->map->walls_lvl1.clear();
+                                this->map->background.setTexture(this->map->background_texture_hard);
+                                this->map->wall_hor.setTexture(this->map->wall_texture_hor_hard);
+                                for (int i = 0; i < 5; i++)
+                                    this->map->walls_lvl1.push_back(this->map->wall_hor);
+                                
+                                this->map->wall_ver.setTexture(this->map->wall_texture_ver_hard);
+                                for (int i = 0; i < 7; i++)
+                                    this->map->walls_lvl1.push_back(this->map->wall_ver);
+
                                 this->weapon->change_damage(this->weapon->damage, -this->difficulty);
                                 this->difficulty = -50;
                                 this->weapon->change_damage(this->weapon->damage, this->difficulty);

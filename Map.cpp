@@ -2,19 +2,18 @@
 
 Map::Map(){
     this->background_texture.loadFromFile("textures/map.png");
-    this->background.setTexture(background_texture);
+    this->background_texture_normal.loadFromFile("textures/map_normal.png");
+    this->background_texture_hard.loadFromFile("textures/map_hard.png");
     
     // horizontal walls
     this->wall_texture_hor.loadFromFile("textures/wall_hor.png");
-    this->wall_hor.setTexture(wall_texture_hor);
-    for (int i = 0; i < 5; i++)
-        this->walls_lvl1.push_back(wall_hor);
+    this->wall_texture_hor_normal.loadFromFile("textures/wall_hor_normal.png");
+    this->wall_texture_hor_hard.loadFromFile("textures/wall_hor_hard.png");
     
     // vertical walls
     this->wall_texture_ver.loadFromFile("textures/wall_ver.png");
-    this->wall_ver.setTexture(wall_texture_ver);
-    for (int i = 0; i < 7; i++)
-        this->walls_lvl1.push_back(wall_ver);
+    this->wall_texture_ver_normal.loadFromFile("textures/wall_ver_normal.png");
+    this->wall_texture_ver_hard.loadFromFile("textures/wall_ver_hard.png");
 }
 
 Map::~Map(){
