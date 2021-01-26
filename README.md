@@ -11,7 +11,7 @@ ograniczoną ilość życia i amunicji, którą będzie musiał podnosić z poko
 
 Podział pracy:  
 Mateusz Oryl - gracz, przeciwnicy, broń, poziom trudności, wypadanie rzeczy z przeciwników  
-Hubert Dziedziura - mapy, menu, sklep, interakcje z przeszkodami, tekstury postaci, przeciwników, broni, mapy
+Hubert Dziedziura - mapy, menu, sklep, interakcje z przeszkodami, tekstury postaci, przeciwników, broni, mapy, dźwięki
 
 Technologie użyte do projektu:
 Biblioteka SFML
@@ -54,3 +54,10 @@ Stan gry na 01.12.2020:
 TODO na 15.12.2020:
 - stworzenie wszystkich 10 poziomów
 - dodanie zakończenia gry, podliczenie punktów i statystyk
+
+KONIEC
+- przeciwnicy obracają się w stronę gracza
+- gracz obraca się w kierunku myszki
+- punkty i statystyki podliczane pod koniec gry
+- dodanie muzyki w menu i muzyki w grze
+- dodanie dźwięków strzelania 
