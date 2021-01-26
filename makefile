@@ -1,7 +1,7 @@
 OBJS = main.o Game.o Player.o Enemy.o Weapon.o Map.o Menu.o MenuHelp.o MenuShop.o MenuGameEnd.o MenuDiffic.o Bullet.o Coin.o Heart.o
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
-LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
+LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 game: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o game $(OBJS) $(LDLIBS)

@@ -1,6 +1,12 @@
 #include "Map.h"
 
 Map::Map(){
+
+    action_music.openFromFile("sounds/audio_action.wav");
+
+    buffer.loadFromFile("sounds/audio_gun.wav");
+    shot.setBuffer(buffer);
+
     this->background_texture.loadFromFile("textures/map.png");
     this->background_texture_normal.loadFromFile("textures/map_normal.png");
     this->background_texture_hard.loadFromFile("textures/map_hard.png");

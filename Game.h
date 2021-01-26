@@ -19,7 +19,6 @@ class Game{
 private:
     sf::RenderWindow *window;
     sf::Event event;
-    // sf::Image *icon;
 
     Menu *menu;
     MenuHelp *menu_help;
@@ -38,7 +37,7 @@ private:
     std::vector<Bullet> bullets;
     std::vector<Coin> coins;
     std::vector<Heart> hearts;
-    
+
     sf::Vector2f mousePosWindow;
     sf::Vector2f aimDir;
 	sf::Vector2f aimDirNorm;
@@ -49,9 +48,6 @@ private:
     int damage;
 
     float oldRotate;
-
-    // clock_t start;
-    // clock_t stop;
 
     sf::Clock clock;
     sf::Clock cooldown;

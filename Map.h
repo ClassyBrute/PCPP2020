@@ -13,6 +13,11 @@ public:
 
     std::vector<sf::Sprite> walls_lvl1;
 
+    sf::Music action_music;
+
+    sf::SoundBuffer buffer;
+    sf::Sound shot;
+
     sf::Texture background_texture;
     sf::Texture background_texture_normal;
     sf::Texture background_texture_hard;

@@ -2,6 +2,9 @@
 
 Menu::Menu(float width, float height){
 
+    menu_music.openFromFile("sounds/audio_menu.wav");
+    menu_music.play();
+
     font.loadFromFile("textures/font.ttf");
     font_title.loadFromFile("textures/font_title.ttf");
 

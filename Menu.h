@@ -23,6 +23,8 @@ public:
     sf::Texture background_texture;
     sf::Sprite background;
 
+    sf::Music menu_music;
+
     sf::Font font;
     sf::Font font_title;
     sf::Text menu[MAX_NUMBER_OF_ITEMS];    

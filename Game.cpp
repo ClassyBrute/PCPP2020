@@ -155,6 +155,9 @@ void Game::level10(){
 void Game::next_level(){
     this->player->reset_position();
     this->bullets.clear();
+    this->menu->menu_music.pause();
+    this->map->action_music.play();
+
     switch(this->current_level){
         case 1:
             this->level1();
@@ -206,7 +209,6 @@ void Game::updateSFMLEvents(){
 
 void Game::updateSFMLEventsInMenu(){
     while (this->window->pollEvent(this->event)){
-
         switch (event.type){
 
             case sf::Event::KeyReleased:
@@ -222,8 +224,6 @@ void Game::updateSFMLEventsInMenu(){
                     case sf::Keyboard::Return:
                         switch (menu->GetPressedItem()){
                             case 0:
-                                // clock.restart();
-                                // this->run();
                                 this->render_menu_diffic();
                                 this->run_menu_diffic();
                                 break;
@@ -367,8 +367,6 @@ void Game::updateSFMLEventsInMenuShop(){
 
                     case sf::Keyboard::Return:
                         if (this->player->gold >= 50){
-                            // this->menu_shop->money.setString("");
-                            // this->menu_shop->money1.setString("");
                             switch (menu_shop->GetPressedItem()){
                                 case 0:
                                     this->player->gold -= 50;
@@ -397,8 +395,6 @@ void Game::updateSFMLEventsInMenuShop(){
                         else{
                             switch (menu_shop->GetPressedItem()){
                                 case 0:
-                                    // this->window->draw(menu_shop->money);
-                                    // this->window->draw(menu_shop->money1);
                                     this->menu_shop->money.setString("YOU DON'T HAVE \nENOUGH MONEY");
                                     this->menu_shop->money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
 
@@ -406,14 +402,10 @@ void Game::updateSFMLEventsInMenuShop(){
                                 case 1:
                                     this->menu_shop->money.setString("YOU DON'T HAVE \nENOUGH MONEY");
                                     this->menu_shop->money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
-                                    // this->window->draw(menu_shop->money);
-                                    // this->window->draw(menu_shop->money1);
                                     break;
                                 case 2:
                                     this->menu_shop->money.setString("YOU DON'T HAVE \nENOUGH MONEY");
                                     this->menu_shop->money1.setString("YOU DON'T HAVE \nENOUGH MONEY");
-                                    // this->window->draw(menu_shop->money);
-                                    // this->window->draw(menu_shop->money1);
                                     break;
                                 case 3:
                                     this->next_level();
@@ -461,9 +453,6 @@ void Game::updateSFMLEventsInMenuGameEnd(){
                                 this->damage = 0;
                                 
                                 this->run_menu_diffic();
-                                // this->render_menu_diffic();
-                                // this->next_level();
-                                // this->run();
                                 break;
                             case 1:
                                 this->window->close();
@@ -586,6 +575,8 @@ void Game::updateEnemyMove(){
         else{
             this->player->health(-this->enemies[i].attack());
             if (this->player->player_health <= 0){
+                this->map->action_music.pause();
+                this->menu->menu_music.play();
                 this->menu_game_end->draw(this->window->getSize().x, this->window->getSize().y,  this->player->total_gold, this->time);
                 this->render_menu_game_end();
                 this->run_menu_game_end();
@@ -831,6 +822,9 @@ void Game::enemy_rotate(){
 
 void Game::drawBullets(){
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && (this->cooldown.getElapsedTime().asSeconds() > this->weapon->cooldown + this->speed_bullet)){
+
+        this->map->shot.play();
+
         this->bullet = new Bullet(this->weapon->damage, this->weapon->cooldown);
         this->bullet->bullet.setPosition(this->player->character.getPosition().x + this->player->player_texture.getSize().x / 2, this->player->character.getPosition().y + this->player->player_texture.getSize().y / 2);
         this->bullet->velocity = aimDirNorm * this->weapon->max_speed;
